@@ -1,0 +1,37 @@
+---
+// Dateipfad: frontend/src/pages/index.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getEntry, getCollection } from "astro:content";
+import Hero from "../components/blocks/Hero.astro";
+import Expertise from "../components/blocks/Expertise.astro";
+import Contact from "../components/blocks/Contact.astro";
+
+// Daten aus Keystatic laden
+const profile = await getEntry("settings", "profile");
+const expertiseList = await getCollection("expertise");
+const sortedExpertise = expertiseList.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+---
+
+<BaseLayout title={`Dr. Helmut Krassnigg | ${profile?.data.title || 'Online-Visitenkarte'}`}>
+  <main class="max-w-screen-xl mx-auto px-6 md:px-12">
+    <Hero 
+      name={profile?.data.name} 
+      title={profile?.data.title} 
+      bio={profile?.data.bio} 
+    />
+    
+    <section id="expertise" class="py-24 border-t border-kyoto-accent/10">
+      <h2 class="text-3xl font-serif mb-12 italic">Expertise & Tätigkeiten</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+        {sortedExpertise.map((item) => (
+          <Expertise title={item.data.title} description={item.data.description} />
+        ))}
+      </div>
+    </section>
+
+    <Contact 
+      email={profile?.data.contactEmail} 
+      location={profile?.data.location} 
+    />
+  </main>
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+// Dateipfad: frontend/src/layouts/BaseLayout.astro
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Dr. Helmut Krassnigg - Profil" } = Astro.props;
+import "../styles/global.css";
+---
+
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    </head>
+  <body class="bg-kyoto-bg text-kyoto-text selection:bg-kyoto-accent selection:text-white">
+    <slot />
+  </body>
+</html>

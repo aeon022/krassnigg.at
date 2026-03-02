@@ -1,0 +1,21 @@
+---
+// Dateipfad: frontend/src/components/blocks/Contact.astro
+const { email, location } = Astro.props;
+---
+<footer class="py-24 border-t border-kyoto-accent/10 mt-20">
+  <div class="flex flex-col md:flex-row justify-between items-start gap-12">
+    <div>
+      <h2 class="text-3xl font-serif italic mb-6">Kontakt</h2>
+      <a href={`mailto:${email}`} class="text-2xl hover:text-kyoto-accent underline decoration-1 underline-offset-8 transition-all">
+        {email}
+      </a>
+    </div>
+    <div class="text-kyoto-sub">
+      <p class="uppercase tracking-widest text-xs mb-2">Standort</p>
+      <p class="font-medium text-kyoto-text">{location}</p>
+    </div>
+  </div>
+  <div class="mt-24 pt-8 border-t border-kyoto-accent/5 text-[10px] uppercase tracking-[0.3em] text-kyoto-sub/50">
+    © {new Date().getFullYear()} Dr. Helmut Krassnigg // ABTEILUNG83 Deploy
+  </div>
+</footer>

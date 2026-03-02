@@ -1,0 +1,22 @@
+/* Dateipfad: frontend/src/styles/global.css */
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "KyotoSerif", serif; /* Falls vorhanden, sonst System-Serif */
+  --font-sans: "KyotoSans", sans-serif;
+
+  /* Kyoto Palette: Ruhig, organisch */
+  --color-kyoto-bg: #fdfcfb;
+  --color-kyoto-text: #1a1a1a;
+  --color-kyoto-accent: #3d4a3e; /* Ein tiefes Waldgrün/Zen-Grün */
+  --color-kyoto-sub: #7a7a7a;
+}
+
+@layer base {
+  body {
+    @apply bg-kyoto-bg text-kyoto-text font-sans antialiased;
+  }
+  h1, h2 {
+    @apply font-serif tracking-tight;
+  }
+}

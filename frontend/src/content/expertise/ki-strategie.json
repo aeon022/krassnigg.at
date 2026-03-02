@@ -1,0 +1,6 @@
+// Dateipfad: frontend/src/content/expertise/ki-strategie.json
+{
+  "title": "KI-Strategieberatung",
+  "description": "Brückenschlag zwischen klassischem Management und digitaler Transformation durch den gezielten Einsatz KI-gestützter Tools.",
+  "order": 3
+}
