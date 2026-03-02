@@ -2,20 +2,27 @@
 // Dateipfad: frontend/src/components/blocks/Contact.astro
 const { email, location } = Astro.props;
 ---
-<footer class="py-24 border-t border-kyoto-accent/10 mt-20">
-  <div class="flex flex-col md:flex-row justify-between items-start gap-12">
-    <div>
-      <h2 class="text-3xl font-serif italic mb-6">Kontakt</h2>
-      <a href={`mailto:${email}`} class="text-2xl hover:text-kyoto-accent underline decoration-1 underline-offset-8 transition-all">
+<footer class="py-24 border-t border-kyoto-accent/10 mt-24">
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-16">
+    <div class="md:col-span-8">
+      <h2 class="text-4xl font-serif italic mb-10">In Kontakt treten</h2>
+      <a href={`mailto:${email}`} class="text-2xl md:text-4xl hover:text-kyoto-accent underline decoration-1 underline-offset-[12px] transition-all font-light">
         {email}
       </a>
     </div>
-    <div class="text-kyoto-sub">
-      <p class="uppercase tracking-widest text-xs mb-2">Standort</p>
-      <p class="font-medium text-kyoto-text">{location}</p>
+    <div class="md:col-span-4 space-y-6">
+      <div>
+        <p class="uppercase tracking-widest text-[10px] text-kyoto-accent mb-3">Region</p>
+        <p class="text-xl font-medium text-kyoto-text">{location}</p>
+      </div>
+      <div>
+        <p class="uppercase tracking-widest text-[10px] text-kyoto-accent mb-3">Netzwerk</p>
+        <p class="text-sm text-kyoto-sub">Wissenschaftlicher Beirat & Lektorat an Fachhochschulen.</p>
+      </div>
     </div>
   </div>
-  <div class="mt-24 pt-8 border-t border-kyoto-accent/5 text-[10px] uppercase tracking-[0.3em] text-kyoto-sub/50">
-    © {new Date().getFullYear()} Dr. Helmut Krassnigg // ABTEILUNG83 Deploy
+  <div class="mt-24 pt-10 border-t border-kyoto-accent/5 flex justify-between items-center text-[10px] uppercase tracking-[0.4em] text-kyoto-sub/40">
+    <span>© {new Date().getFullYear()} Dr. Helmut Krassnigg</span>
+    <span>Less Noise. Nice Data. No Bloat.</span>
   </div>
 </footer>

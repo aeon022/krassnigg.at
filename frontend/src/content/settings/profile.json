@@ -1,8 +1,8 @@
-// Dateipfad: frontend/src/content/settings/profile.json
 {
   "name": "Dr. Helmut Krassnigg",
   "title": "Unternehmensberater & Aftersales-Spezialist",
   "bio": "Seit über zwei Jahrzehnten begleite ich Unternehmen bei der Optimierung von Serviceprozessen und der digitalen Transformation. Mein Fokus liegt auf der Verbindung von strategischer Organisationsentwicklung mit moderner KI-Effizienz – pragmatisch, messbar und stets kundenorientiert.",
+  "heroImage": "../../assets/images/profile/heroImage.jpg",
   "contactEmail": "office@krassnigg.at",
   "location": "Graz, Österreich"
 }

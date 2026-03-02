@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        serif: ["KyotoSerif", "serif"],
-        sans: ["KyotoSans", "sans-serif"],
+        serif: ["'Noto Serif JP'", "serif"],
+        sans: ["'Noto Sans JP'", "sans-serif"],
       },
       colors: {
         'kyoto-bg': '#fdfcfb',

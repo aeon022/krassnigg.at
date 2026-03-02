@@ -13,6 +13,12 @@ export default config({
         name: fields.text({ label: 'Voller Name' }),
         title: fields.text({ label: 'Titel (z.B. Dr. med. univ.)' }),
         bio: fields.text({ label: 'Kurz-Bio', multiline: true }),
+        heroImage: fields.image({
+          label: 'Hero Bild',
+          directory: 'src/assets/images/profile',
+          // FIX: Relativer Pfad von src/content/settings/ zu src/assets/images/profile/
+          publicPath: '../../assets/images/profile/' 
+        }),
         contactEmail: fields.text({ label: 'E-Mail Adresse' }),
         location: fields.text({ label: 'Standort/Kanzlei' }),
       },
