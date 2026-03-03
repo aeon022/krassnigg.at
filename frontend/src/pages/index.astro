@@ -3,7 +3,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getEntry, getCollection } from "astro:content";
 import Hero from "../components/blocks/Hero.astro";
-import Expertise from "../components/blocks/Expertise.astro";
+import ExpertiseBlock from "../components/ExpertiseBlock.astro";
 import Contact from "../components/blocks/Contact.astro";
 
 const profile = await getEntry("settings", "profile");
@@ -12,28 +12,31 @@ const sortedExpertise = expertiseList.sort((a, b) => (a.data.order || 0) - (b.da
 ---
 
 <BaseLayout title={`Dr. Helmut Krassnigg | ${profile?.data.title}`}>
-  <main class="max-w-screen-xl mx-auto px-6 md:px-12">
-    <Hero 
-      name={profile?.data.name} 
-      title={profile?.data.title} 
-      bio={profile?.data.bio}
-      heroImage={profile?.data.heroImage} 
-    />
+  <main>
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <Hero 
+        name={profile?.data.name} 
+        title={profile?.data.title} 
+        bio={profile?.data.bio}
+        heroImage={profile?.data.heroImage} 
+      />
+    </div>
     
-    <section id="expertise" class="py-32 border-t border-kyoto-accent/10">
-      <div class="flex flex-col md:flex-row justify-between mb-20">
-        <h2 class="text-4xl font-serif italic mb-6 md:mb-0">Expertise &<br/>Tätigkeitsbereiche</h2>
-        <p class="max-w-sm text-kyoto-sub text-lg leading-relaxed">
-          Strukturierte Begleitung und Prozessoptimierung für nachhaltige unternehmerische Resilienz.
-        </p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16">
-        {sortedExpertise.map((item) => (
-          <Expertise title={item.data.title} description={item.data.description} />
-        ))}
-      </div>
-    </section>
+    <div class="bg-kyoto-light-gray">
+      <section id="expertise" class="py-32 max-w-7xl mx-auto px-6 md:px-12">
+        <div class="text-center mb-20">
+          <h2 class="text-5xl font-bold font-serif">Expertise & Tätigkeitsbereiche</h2>
+          <p class="text-xl text-kyoto-sub mt-6 max-w-3xl mx-auto">
+            Strukturierte Begleitung und Prozessoptimierung für nachhaltige unternehmerische Resilienz.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {sortedExpertise.map((item) => (
+            <ExpertiseBlock expertise={item.data} />
+          ))}
+        </div>
+      </section>
+    </div>
 
     <Contact 
       email={profile?.data.contactEmail} 

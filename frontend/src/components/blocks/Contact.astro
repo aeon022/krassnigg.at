@@ -2,27 +2,15 @@
 // Dateipfad: frontend/src/components/blocks/Contact.astro
 const { email, location } = Astro.props;
 ---
-<footer class="py-24 border-t border-kyoto-accent/10 mt-24">
-  <div class="grid grid-cols-1 md:grid-cols-12 gap-16">
-    <div class="md:col-span-8">
-      <h2 class="text-4xl font-serif italic mb-10">In Kontakt treten</h2>
-      <a href={`mailto:${email}`} class="text-2xl md:text-4xl hover:text-kyoto-accent underline decoration-1 underline-offset-[12px] transition-all font-light">
-        {email}
-      </a>
-    </div>
-    <div class="md:col-span-4 space-y-6">
-      <div>
-        <p class="uppercase tracking-widest text-[10px] text-kyoto-accent mb-3">Region</p>
-        <p class="text-xl font-medium text-kyoto-text">{location}</p>
-      </div>
-      <div>
-        <p class="uppercase tracking-widest text-[10px] text-kyoto-accent mb-3">Netzwerk</p>
-        <p class="text-sm text-kyoto-sub">Wissenschaftlicher Beirat & Lektorat an Fachhochschulen.</p>
-      </div>
-    </div>
+<section class="py-32 bg-white text-center">
+  <div class="max-w-4xl mx-auto px-6 md:px-12">
+    <h2 class="text-5xl font-bold font-serif mb-6">In Kontakt treten</h2>
+    <p class="text-xl text-kyoto-sub mb-10">
+      Ich freue mich auf Ihre Anfrage und eine mögliche Zusammenarbeit.
+    </p>
+    <a href={`mailto:${email}`} class="text-3xl text-kyoto-accent hover:underline font-serif font-bold">
+      {email}
+    </a>
+    <p class="text-lg text-kyoto-sub mt-6">{location}</p>
   </div>
-  <div class="mt-24 pt-10 border-t border-kyoto-accent/5 flex justify-between items-center text-[10px] uppercase tracking-[0.4em] text-kyoto-sub/40">
-    <span>© {new Date().getFullYear()} Dr. Helmut Krassnigg</span>
-    <span>Less Noise. Nice Data. No Bloat.</span>
-  </div>
-</footer>
+</section>

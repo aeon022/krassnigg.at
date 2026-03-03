@@ -5,9 +5,30 @@
 
 @layer base {
   body {
-    @apply bg-kyoto-bg text-kyoto-text font-sans antialiased;
+    @apply bg-kyoto-bg text-kyoto-text font-sans antialiased text-base;
   }
-  h1, h2 {
-    @apply font-serif tracking-tight;
+  
+  main {
+    /* @apply max-w-5xl mx-auto; */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+
+  h1 {
+    @apply text-6xl font-bold;
+  }
+
+  h2 {
+    @apply text-4xl font-bold;
+  }
+
+  h3 {
+    @apply text-2xl font-bold;
+  }
+
+  p {
+    @apply leading-relaxed text-xl;
   }
 }

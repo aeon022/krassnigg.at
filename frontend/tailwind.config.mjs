@@ -4,14 +4,15 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        serif: ["'Noto Serif JP'", "serif"],
-        sans: ["'Noto Sans JP'", "sans-serif"],
+        serif: ["'Playfair Display'", "serif"],
+        sans: ["'Inter'", "sans-serif"],
       },
       colors: {
         'kyoto-bg': '#fdfcfb',
         'kyoto-text': '#1a1a1a',
         'kyoto-accent': '#3d4a3e',
         'kyoto-sub': '#7a7a7a',
+        'kyoto-light-gray': '#f9fafb',
       }
     },
   },
