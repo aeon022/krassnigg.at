@@ -4,31 +4,181 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    color-scheme: light;
+
+    /* === Woodland Zen Palette === */
+
+    /* Khaki Beige */
+    --color-khaki-beige-50: #f4f3f1;
+    --color-khaki-beige-100: #e8e7e3;
+    --color-khaki-beige-200: #d2cfc6;
+    --color-khaki-beige-300: #bbb6aa;
+    --color-khaki-beige-400: #a49e8e;
+    --color-khaki-beige-500: #8e8671;
+    --color-khaki-beige-600: #716b5b;
+    --color-khaki-beige-700: #555044;
+    --color-khaki-beige-800: #39362d;
+    --color-khaki-beige-900: #1c1b17;
+    --color-khaki-beige-950: #141310;
+
+    /* Taupe */
+    --color-taupe-50: #f5f2f0;
+    --color-taupe-100: #eae5e1;
+    --color-taupe-200: #d6cac2;
+    --color-taupe-300: #c1b0a4;
+    --color-taupe-400: #ac9686;
+    --color-taupe-500: #987b67;
+    --color-taupe-600: #796353;
+    --color-taupe-700: #5b4a3e;
+    --color-taupe-800: #3d3129;
+    --color-taupe-900: #1e1915;
+    --color-taupe-950: #15110e;
+
+    /* Muted Teal */
+    --color-muted-teal-50: #f0f5f3;
+    --color-muted-teal-100: #e1eae7;
+    --color-muted-teal-200: #c3d5d0;
+    --color-muted-teal-300: #a5c0b8;
+    --color-muted-teal-400: #87aba1;
+    --color-muted-teal-500: #699689;
+    --color-muted-teal-600: #54786e;
+    --color-muted-teal-700: #3f5a52;
+    --color-muted-teal-800: #2a3c37;
+    --color-muted-teal-900: #151e1b;
+    --color-muted-teal-950: #0f1513;
+
+    /* Pearl Aqua */
+    --color-pearl-aqua-50: #ecf9f4;
+    --color-pearl-aqua-100: #d8f3e9;
+    --color-pearl-aqua-200: #b2e6d4;
+    --color-pearl-aqua-300: #8bdabe;
+    --color-pearl-aqua-400: #65cda9;
+    --color-pearl-aqua-500: #3ec193;
+    --color-pearl-aqua-600: #329a76;
+    --color-pearl-aqua-700: #257458;
+    --color-pearl-aqua-800: #194d3b;
+    --color-pearl-aqua-900: #0c271d;
+    --color-pearl-aqua-950: #091b15;
+
+    /* === Semantic Tokens === */
+    --color-bg: var(--color-khaki-beige-50);
+    --color-ink: var(--color-khaki-beige-900);
+    --color-text: var(--color-khaki-beige-900);
+    --color-accent: var(--color-muted-teal-600);
+    --color-line: var(--color-khaki-beige-200);
+    --color-surface: var(--color-khaki-beige-100);
+    --color-text-soft: var(--color-khaki-beige-600);
+    --color-text-muted: var(--color-khaki-beige-400);
+    --color-accent-soft: var(--color-muted-teal-50);
+    --color-line-strong: var(--color-khaki-beige-300);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html,
   body {
-    @apply bg-kyoto-bg text-kyoto-text font-sans antialiased text-base;
+    margin: 0;
+    padding: 0;
   }
-  
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    @apply font-sans antialiased text-base;
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(rgba(28, 27, 23, 0.05) 0.4px, transparent 0.4px),
+      radial-gradient(rgba(28, 27, 23, 0.04) 0.3px, transparent 0.3px);
+    background-size: 3px 3px, 5px 5px;
+    background-position: 0 0, 1px 1px;
+    opacity: 0.15;
+    z-index: 0;
+  }
+
   main {
-    /* @apply max-w-5xl mx-auto; */
+    position: relative;
+    z-index: 1;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif;
+    letter-spacing: 0.01em;
+  }
+}
+
+@layer components {
+  .text-primary {
+    color: var(--color-text);
   }
 
-  h1 {
-    @apply text-6xl font-bold;
+  .text-soft {
+    color: var(--color-text-soft);
   }
 
-  h2 {
-    @apply text-4xl font-bold;
+  .text-muted {
+    color: var(--color-text-muted);
   }
 
-  h3 {
-    @apply text-2xl font-bold;
+  .bg-paper {
+    background: var(--color-surface);
   }
 
-  p {
-    @apply leading-relaxed text-xl;
+  .bg-accent-soft {
+    background: var(--color-accent-soft);
+  }
+
+  .accent {
+    color: var(--color-accent);
+  }
+
+  /* border-shibui: only sets color — combine with Tailwind border/border-t/border-b etc. */
+  .border-shibui {
+    border-color: color-mix(in srgb, var(--color-ink), transparent 82%);
+  }
+
+  .section-kicker {
+    @apply font-sans text-[11px] uppercase tracking-[0.22em];
+    color: var(--color-text-soft);
+  }
+}
+
+/* Directional hairlines — 0.5px, placed in utilities to override correctly */
+@layer utilities {
+  .border-t-shibui { border-top: 0.5px solid color-mix(in srgb, var(--color-ink), transparent 82%); }
+  .border-b-shibui { border-bottom: 0.5px solid color-mix(in srgb, var(--color-ink), transparent 82%); }
+  .border-l-shibui { border-left: 0.5px solid color-mix(in srgb, var(--color-ink), transparent 82%); }
+  .border-r-shibui { border-right: 0.5px solid color-mix(in srgb, var(--color-ink), transparent 82%); }
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+  }
+
+  body::before {
+    opacity: 0.05;
+  }
+
+  @page {
+    size: A4;
+    margin: 10mm;
   }
 }

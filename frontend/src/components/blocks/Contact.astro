@@ -2,15 +2,16 @@
 // Dateipfad: frontend/src/components/blocks/Contact.astro
 const { email, location } = Astro.props;
 ---
-<section class="py-32 bg-white text-center">
-  <div class="max-w-4xl mx-auto px-6 md:px-12">
-    <h2 class="text-5xl font-bold font-serif mb-6">In Kontakt treten</h2>
-    <p class="text-xl text-kyoto-sub mb-10">
-      Ich freue mich auf Ihre Anfrage und eine mögliche Zusammenarbeit.
-    </p>
-    <a href={`mailto:${email}`} class="text-3xl text-kyoto-accent hover:underline font-serif font-bold">
+
+<section id="kontakt" class="mt-20 border-t border-shibui pt-10">
+  <p class="section-kicker mb-4">Kontakt</p>
+  <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+    <div>
+      <p class="m-0 text-base md:text-lg text-kyoto-text/85">Für Anfragen zu Coaching, Trainings und Prozessbegleitung.</p>
+      <p class="m-0 mt-2 text-sm text-kyoto-sub uppercase tracking-[0.14em]">{location}</p>
+    </div>
+    <a href={`mailto:${email}`} class="inline-flex items-center border border-shibui px-4 py-2.5 text-sm md:text-base tracking-[0.04em] hover:text-kyoto-accent hover:border-kyoto-accent/50 transition-colors">
       {email}
     </a>
-    <p class="text-lg text-kyoto-sub mt-6">{location}</p>
   </div>
 </section>

@@ -1,8 +1,15 @@
 {
   "name": "Dr. Helmut Krassnigg",
-  "title": "Unternehmensberater & Aftersales-Spezialist",
-  "bio": "Dr. Helmut Krassnigg ist Gründer, Inhaber und Geschäftsführer von Bornemann und Partner Consulting. Sein Fokus liegt auf strategischer Organisationsentwicklung, Führungskräftecoaching und der Begleitung komplexer Veränderungsprozesse. Als Aftersales-Spezialist verfügt er über umfassende Kenntnisse in Prozessmanagement, Qualitätsmanagement und Digitalisierung. Seit über zwei Jahrzehnten optimiert er Serviceprozesse, implementiert integrierte Managementsysteme und steigert die operative Effizienz von Unternehmen maßgeblich. Er ist zudem zertifizierter Auditor (ISO/TS 16949, TQM) und Experte für prozessorientierte Organisationsentwicklung. Sein Ansatz ist pragmatisch, messbar und kundenorientiert und deckt von der Serviceannahme über Werkstattprozesse bis hin zu digitalen Schnittstellen zwischen Vertrieb und Aftersales alles ab. Neben seiner Beratertätigkeit ist Dr. Krassnigg als Trainer, Coach und Hochschullektor tätig und hält Seminare und Trainings zu den Themen Führung, Projektmanagement, Change Management und Prozessoptimierung.",
+  "title": "Unternehmensberater · Organisationsentwicklung · Aftersales",
+  "bio": "Helmut Krassnigg ist Aftersales-Spezialist mit tiefem Know-how in Prozessmanagement, Qualitätsmanagement und Digitalisierung. Mit seiner Erfahrung im Automobilsektor und seiner Expertise im Einsatz von KI-gestützten Tools verbindet er klassisches Prozessmanagement mit digitaler Transformation.",
+  "introStatement": "Ich stabilisiere Veränderung in Organisationen, indem ich Führung, Prozesse und Umsetzung präzise aufeinander ausrichte.",
+  "focusItems": [
+    "Organisationsentwicklung",
+    "Leadership",
+    "Prozess- & Qualitätsmanagement"
+  ],
+  "discoverLabel": "Entdecken",
   "heroImage": "../../assets/images/profile/heroImage.jpg",
-  "contactEmail": "office@krassnigg.at",
+  "contactEmail": "helmut@krassnigg.at",
   "location": "Graz, Österreich"
 }

@@ -13,6 +13,12 @@ export default config({
         name: fields.text({ label: 'Voller Name' }),
         title: fields.text({ label: 'Titel (z.B. Dr. med. univ.)' }),
         bio: fields.text({ label: 'Kurz-Bio', multiline: true }),
+        introStatement: fields.text({ label: 'Profil-Statement', multiline: true }),
+        focusItems: fields.array(
+          fields.text({ label: 'Fokuspunkt' }),
+          { label: 'Hero Fokuspunkte' }
+        ),
+        discoverLabel: fields.text({ label: 'Scroll CTA Label', defaultValue: 'Entdecken' }),
         heroImage: fields.image({
           label: 'Hero Bild',
           directory: 'src/assets/images/profile',
@@ -33,6 +39,66 @@ export default config({
       schema: {
         title: fields.slug({ name: { label: 'Bereich Bezeichnung' } }),
         description: fields.text({ label: 'Beschreibung', multiline: true }),
+        order: fields.number({ label: 'Sortierung' }),
+      },
+    }),
+    experience: collection({
+      label: 'Berufserfahrung',
+      slugField: 'title',
+      path: 'src/content/experience/*',
+      format: { data: 'json' },
+      schema: {
+        title: fields.slug({ name: { label: 'Interner Titel' } }),
+        period: fields.text({ label: 'Zeitraum' }),
+        role: fields.text({ label: 'Rolle/Funktion' }),
+        company: fields.text({ label: 'Organisation' }),
+        companyUrl: fields.url({ label: 'Website (optional)' }),
+        summary: fields.text({ label: 'Beschreibung', multiline: true }),
+        category: fields.select({
+          label: 'Kategorie',
+          options: [
+            { label: 'Berufserfahrung', value: 'berufserfahrung' },
+            { label: 'Beruflicher Werdegang', value: 'werdegang' },
+          ],
+          defaultValue: 'berufserfahrung',
+        }),
+        order: fields.number({ label: 'Sortierung' }),
+      },
+    }),
+    education: collection({
+      label: 'Ausbildung',
+      slugField: 'title',
+      path: 'src/content/education/*',
+      format: { data: 'json' },
+      schema: {
+        title: fields.slug({ name: { label: 'Interner Titel' } }),
+        year: fields.text({ label: 'Jahr' }),
+        degree: fields.text({ label: 'Abschluss/Studium' }),
+        institution: fields.text({ label: 'Institution' }),
+        institutionUrl: fields.url({ label: 'Website (optional)' }),
+        details: fields.text({ label: 'Details (optional)', multiline: true }),
+        order: fields.number({ label: 'Sortierung' }),
+      },
+    }),
+    certifications: collection({
+      label: 'Zertifizierungen',
+      slugField: 'title',
+      path: 'src/content/certifications/*',
+      format: { data: 'json' },
+      schema: {
+        title: fields.slug({ name: { label: 'Zertifizierung' } }),
+        order: fields.number({ label: 'Sortierung' }),
+      },
+    }),
+    profileSections: collection({
+      label: 'Profiltexte',
+      slugField: 'title',
+      path: 'src/content/profile-sections/*',
+      format: { data: 'json' },
+      schema: {
+        title: fields.slug({ name: { label: 'Interner Titel' } }),
+        heading: fields.text({ label: 'Überschrift' }),
+        content: fields.text({ label: 'Inhalt', multiline: true }),
         order: fields.number({ label: 'Sortierung' }),
       },
     }),

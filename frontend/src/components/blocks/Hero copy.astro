@@ -1,0 +1,119 @@
+---
+// Dateipfad: frontend/src/components/blocks/Hero.astro
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+const { name, title, bio, heroImage } = Astro.props;
+
+const heroIntro = typeof bio === "string" ? bio.trim() : "";
+
+const focusItems = [
+  "Organisationsentwicklung",
+  "Leadership",
+  "Prozess- & Qualitätsmanagement",
+];
+
+const localProfileImages = import.meta.glob("../../assets/images/profile/*", {
+  eager: true,
+  import: "default",
+}) as Record<string, ImageMetadata>;
+
+let resolvedHeroImage: ImageMetadata | string | undefined;
+if (typeof heroImage === "string") {
+  resolvedHeroImage = heroImage.startsWith("../../assets/images/profile/")
+    ? localProfileImages[heroImage]
+    : heroImage;
+} else {
+  resolvedHeroImage = heroImage;
+}
+
+const hasImage = !!resolvedHeroImage;
+---
+
+<section
+  class={`grid grid-cols-12 gap-0 h-screen min-h-[600px] border-b border-shibui`}
+  style="border-top: 2px solid var(--color-accent);"
+>
+  <!-- ── Text column (8 of 12) ── -->
+  <div class={`col-span-12 ${hasImage ? 'md:col-span-8' : ''} flex flex-col`}>
+
+    <!-- Zone A: Kicker — anchored top -->
+    <div class="pt-10 md:pt-14 pr-0 md:pr-20">
+      <p class="font-sans text-[10px] uppercase tracking-[0.28em] text-kyoto-accent">
+        Curriculum Vitae
+      </p>
+    </div>
+
+    <!-- Zone B: Name — fills space, sits at bottom of zone -->
+    <div class="flex-1 flex flex-col justify-end pb-7 md:pb-9 pr-0 md:pr-20">
+      <p class="m-0 mb-2.5 font-sans text-[0.72rem] text-muted tracking-[0.04em]">
+        {title}
+      </p>
+      <h1 class="m-0 font-serif text-[clamp(1.9rem,2.8vw,3.1rem)] leading-[1.06] tracking-[0.01em] text-primary">
+        {name}
+      </h1>
+    </div>
+
+    <!-- Hairline — spans full column width intentionally -->
+    <div class="border-t-shibui"></div>
+
+    <!-- Zone C: Bio + Focus -->
+    <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] pr-0 md:pr-20 py-7 md:py-9">
+      <p class="m-0 text-[0.9rem] md:text-[0.93rem] leading-[1.72] text-soft max-w-[52ch]">
+        {heroIntro}
+      </p>
+      <ul class="hidden md:flex flex-col justify-center gap-1.5 border-l-shibui pl-10 m-0 p-0">
+        {focusItems.map((f) => (
+          <li class="list-none font-sans text-[0.68rem] uppercase tracking-[0.1em] text-muted">
+            {f}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Zone D: Scroll indicator — anchored bottom -->
+    <div class="pb-8 md:pb-10 pr-0 md:pr-20">
+      <a
+        href="#profil"
+        class="inline-flex flex-col items-start gap-2 text-kyoto-sub/50 hover:text-kyoto-accent transition-colors duration-300 group"
+        aria-label="Zum nächsten Abschnitt scrollen"
+      >
+        <span class="font-sans text-[0.65rem] uppercase tracking-[0.22em]">Scroll</span>
+        <svg
+          class="w-4 h-5 animate-bounce"
+          fill="none"
+          viewBox="0 0 16 20"
+          aria-hidden="true"
+        >
+          <line x1="8" y1="0" x2="8" y2="14" stroke="currentColor" stroke-width="1"/>
+          <path d="M3 9.5L8 15.5L13 9.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ── Photo column (4 of 12): fills full height ── -->
+  {hasImage && (
+    <div class="hidden md:block md:col-span-4 border-l-shibui overflow-hidden">
+      {typeof resolvedHeroImage === "string" ? (
+        <img
+          src={resolvedHeroImage as string}
+          alt={name}
+          class="w-full h-full object-cover object-top"
+          loading="eager"
+          decoding="async"
+        />
+      ) : (
+        <Image
+          src={resolvedHeroImage as ImageMetadata}
+          alt={name}
+          width={700}
+          height={950}
+          class="w-full h-full object-cover object-top"
+          loading="eager"
+        />
+      )}
+    </div>
+  )}
+</section>

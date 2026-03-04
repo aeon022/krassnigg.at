@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  items: CollectionEntry<"experience">["data"][];
+}
+
+const { items = [] } = Astro.props as Props;
+---
+
+<section class="mt-20" id="experience">
+  <p class="section-kicker mb-6">Beruflicher Werdegang</p>
+  <div class="border-t border-shibui">
+    {items.map((item) => (
+      <article class="grid grid-cols-1 md:grid-cols-[120px_minmax(0,1fr)] border-b border-shibui">
+        <div class="border-b border-shibui md:border-b-0 md:border-r md:border-shibui px-0 py-3 md:py-7 text-[10px] md:text-[11px] tracking-[0.16em] uppercase text-kyoto-sub font-semibold md:[writing-mode:vertical-rl] md:[text-orientation:mixed] flex items-center md:justify-center">
+          {item.period}
+        </div>
+        <div class="px-0 py-5 md:px-10 md:py-7 grid gap-1.5 content-center">
+          <p class="m-0 text-[10px] tracking-[0.14em] uppercase text-kyoto-sub font-semibold">{item.role}</p>
+          <h3 class="m-0 font-serif text-[clamp(1.1rem,1.8vw,1.55rem)] leading-[1.2]">
+            {item.companyUrl ? (
+              <a
+                href={item.companyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-kyoto-accent transition-colors duration-300"
+              >
+                {item.company}
+              </a>
+            ) : (
+              item.company
+            )}
+          </h3>
+          <p class="m-0 mt-1 text-sm md:text-[0.93rem] leading-[1.7] text-kyoto-text/75 max-w-[62ch]">{item.summary}</p>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

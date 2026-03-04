@@ -4,16 +4,16 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        serif: ["'Playfair Display'", "serif"],
-        sans: ["'Inter'", "sans-serif"],
+        serif: ["'Shippori Mincho'", "'Yu Mincho'", "'Hiragino Mincho ProN'", 'serif'],
+        sans: ["'Manrope'", "'Hiragino Kaku Gothic ProN'", "'Yu Gothic'", 'sans-serif'],
       },
       colors: {
-        'kyoto-bg': '#fdfcfb',
-        'kyoto-text': '#1a1a1a',
-        'kyoto-accent': '#3d4a3e',
-        'kyoto-sub': '#7a7a7a',
-        'kyoto-light-gray': '#f9fafb',
-      }
+        'kyoto-bg': '#f4f3f1',    /* khaki-beige-50 */
+        'kyoto-text': '#1c1b17',  /* khaki-beige-900 */
+        'kyoto-accent': '#54786e', /* muted-teal-600 */
+        'kyoto-sub': '#716b5b',   /* khaki-beige-600 */
+        'kyoto-line': '#d2cfc6',  /* khaki-beige-200 */
+      },
     },
   },
   plugins: [],

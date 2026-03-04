@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  expertise: CollectionEntry<"expertise">["data"];
+}
+
+const { expertise } = Astro.props;
+---
+
+<article class="border border-shibui p-5 md:p-6 h-full bg-transparent">
+  <h3 class="font-serif text-[1.28rem] leading-[1.25] mb-3">{expertise.title}</h3>
+  <p class="text-sm md:text-[0.95rem] leading-[1.7] text-kyoto-text/80">{expertise.description}</p>
+</article>
