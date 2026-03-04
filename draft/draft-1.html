@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="de-AT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dr. Helmut Krassnigg - Profil</title>
+  <meta name="description" content="Modernes, japanisch inspiriertes Profil mit klarer Struktur, viel Weissraum und ruhiger Typografie." />
+
+  <style>
+    :root{
+      --bg:#f8f5ee;
+      --ink:#121316;
+      --muted:rgba(16,16,20,.62);
+      --line:rgba(16,16,20,.12);
+      --paper:rgba(255,255,255,.72);
+      --paper-strong:rgba(255,255,255,.88);
+      --seal:#bf3f2f;
+      --accent:#2f5646;
+      --max:1240px;
+
+      --s1: clamp(10px, 1.1vw, 14px);
+      --s2: clamp(16px, 1.8vw, 22px);
+      --s3: clamp(26px, 2.8vw, 38px);
+      --s4: clamp(44px, 4.6vw, 70px);
+      --s5: clamp(70px, 7vw, 110px);
+
+      --radius: 24px;
+      --shadow: 0 24px 72px rgba(0,0,0,.09);
+      --content: 760px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--ink);
+      background: var(--bg);
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
+      line-height:1.8;
+      letter-spacing:.01em;
+    }
+    a{color:inherit;text-decoration:none}
+    a:hover{text-decoration:underline;text-underline-offset:4px}
+
+    .bg{
+      min-height:100svh;
+      background:
+        radial-gradient(circle at 10% 15%, rgba(191,63,47,.08), transparent 52%),
+        radial-gradient(circle at 84% 82%, rgba(47,86,70,.09), transparent 56%),
+        linear-gradient(160deg, rgba(255,255,255,.3), transparent 58%),
+        repeating-linear-gradient(90deg, rgba(16,16,20,.028) 0 1px, transparent 1px 84px),
+        repeating-linear-gradient(0deg, rgba(16,16,20,.020) 0 1px, transparent 1px 84px);
+    }
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: var(--s5) var(--s3);
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns: 140px 1fr;
+      gap: var(--s4);
+      align-items:start;
+    }
+
+    aside{
+      position: sticky;
+      top: var(--s3);
+      align-self:start;
+      border-left: 1px solid var(--line);
+      padding-left: var(--s2);
+      min-height: calc(100svh - (var(--s5) * 1.2));
+    }
+
+    .rail-title{
+      display:flex;
+      align-items:flex-start;
+      gap: var(--s2);
+    }
+
+    .vertical{
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      letter-spacing: .22em;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      user-select:none;
+    }
+
+    .seal{
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--seal);
+      box-shadow: 0 0 0 10px rgba(198,61,43,.10);
+      margin-top: 6px;
+    }
+
+    .rail-nav{
+      margin-top: var(--s4);
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .rail-link{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .rail-link:hover{
+      background: rgba(255,255,255,.55);
+      border-color: var(--line);
+      text-decoration:none;
+      color: var(--ink);
+    }
+    .dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.8);
+      flex: 0 0 auto;
+    }
+
+    main{
+      display:block;
+      max-width: var(--content);
+    }
+
+    header{
+      padding-bottom: var(--s4);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .kicker{
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0 0 var(--s2) 0;
+    }
+
+    h1{
+      margin:0;
+      font-size: clamp(46px, 5.4vw, 78px);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+
+    .subtitle{
+      margin: var(--s2) 0 0 0;
+      color: var(--muted);
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      max-width: 78ch;
+    }
+
+    section{
+      padding: var(--s4) 0;
+      border-bottom: 1px solid var(--line);
+    }
+    section:last-of-type{ border-bottom: 0; }
+
+    .h2row{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap: var(--s3);
+      margin-bottom: var(--s3);
+    }
+    h2{
+      margin:0;
+      font-size: clamp(22px, 2.3vw, 30px);
+      letter-spacing:-.01em;
+    }
+    .jp-label{
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--accent);
+      white-space:nowrap;
+    }
+
+    .lede{
+      margin:0;
+      color: var(--muted);
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      max-width: 80ch;
+    }
+
+    ul{
+      margin: var(--s3) 0 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    li{ margin: 10px 0; }
+
+    .portrait{
+      margin-top: var(--s4);
+      background: linear-gradient(155deg, var(--paper-strong), var(--paper));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: var(--s2);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(1.2px);
+    }
+    .portrait img{
+      display:block;
+      width:100%;
+      height:auto;
+      border-radius: calc(var(--radius) - 10px);
+      border: 1px solid rgba(16,16,20,.10);
+      filter: grayscale(10%) contrast(1.04);
+    }
+    .meta{
+      margin-top: var(--s2);
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .chip{
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.55);
+    }
+
+    dl{
+      margin: var(--s3) 0 0 0;
+      display:grid;
+      gap: var(--s3);
+    }
+    dt{
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    dd{
+      margin: 8px 0 0 0;
+      color: var(--muted);
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    dd strong{ color: var(--ink); }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+      margin-top: var(--s3);
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.68);
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-weight: 650;
+      font-size: 14px;
+      transition: transform .22s ease, background-color .22s ease, border-color .22s ease;
+    }
+    .btn.primary{
+      border-color: rgba(191,63,47,.36);
+      background: rgba(191,63,47,.16);
+    }
+    .btn:hover{
+      background: rgba(255,255,255,.94);
+      border-color: rgba(18,19,22,.22);
+      transform: translateY(-1px);
+      text-decoration:none;
+    }
+
+    footer{
+      margin-top: var(--s5);
+      padding-top: var(--s4);
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: 12px;
+    }
+
+    @media (max-width: 980px){
+      .layout{ grid-template-columns: 1fr; gap: var(--s3); }
+      aside{
+        position: static;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+        padding: var(--s2) 0 0 0;
+        min-height: auto;
+      }
+      .rail-title{ align-items:center; }
+      .vertical{ writing-mode: horizontal-tb; }
+      .rail-nav{ flex-direction:row; flex-wrap:wrap; gap: 8px; margin-top: var(--s2); }
+      .rail-link{ padding: 10px 12px; }
+    }
+
+    @media (max-width: 640px){
+      .wrap{ padding: var(--s4) var(--s2); }
+      h1{ font-size: clamp(36px, 13vw, 54px); }
+      .h2row{ flex-direction:column; align-items:flex-start; gap: 8px; }
+      .actions{ gap: 10px; }
+      .btn{ width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg">
+    <div class="wrap">
+      <div class="layout">
+        <aside aria-label="Seitennavigation">
+          <div class="rail-title">
+            <span class="seal" aria-hidden="true"></span>
+            <div class="vertical">Profile</div>
+          </div>
+
+          <nav class="rail-nav" aria-label="Abschnitte">
+            <a class="rail-link" href="#profil"><span class="dot" aria-hidden="true"></span>Profil</a>
+            <a class="rail-link" href="#fokus"><span class="dot" aria-hidden="true"></span>Schwerpunkte</a>
+            <a class="rail-link" href="#change"><span class="dot" aria-hidden="true"></span>Change</a>
+            <a class="rail-link" href="#cv"><span class="dot" aria-hidden="true"></span>Werdegang</a>
+            <a class="rail-link" href="#kontakt"><span class="dot" aria-hidden="true"></span>Kontakt</a>
+          </nav>
+        </aside>
+
+        <main>
+          <header id="profil">
+            <p class="kicker">Quiet Structure</p>
+            <h1>Dr. Helmut Krassnigg</h1>
+            <p class="subtitle">
+              Strategische Organisationsentwicklung, Führungskräftecoaching und Begleitung komplexer Change-Prozesse –
+              mit starkem Fokus auf Aftersales/Service, Prozess- & Qualitätsmanagement, Digitalisierung und KI-Tools.
+            </p>
+
+            <div class="portrait" aria-label="Portrait und Kurzinfos">
+              <img
+                src="https://www.bornemannundpartner.at/wp-content/uploads/2025/10/Helmut-Krassnigg.webp"
+                alt="Portrait von Dr. Helmut Krassnigg"
+                loading="lazy"
+              />
+              <div class="meta">
+                <span class="chip">Trainer</span>
+                <span class="chip">Coach</span>
+                <span class="chip">Hochschullektor</span>
+                <span class="chip">Aftersales</span>
+                <span class="chip">Prozesse</span>
+                <span class="chip">KI-Tools</span>
+              </div>
+            </div>
+          </header>
+
+          <section id="fokus">
+            <div class="h2row">
+              <h2>Schwerpunkte</h2>
+              <div class="jp-label">Focus</div>
+            </div>
+            <p class="lede">
+              Konzentration auf wirksame Verbesserungen im Service: Prozesse glätten, Qualität stabilisieren,
+              Digitalisierung sinnvoll einsetzen – ohne Overengineering.
+            </p>
+
+            <ul>
+              <li><strong>Aftersales & Serviceprozesse</strong>: Optimierung von Service- und Werkstattprozessen, messbar & pragmatisch.</li>
+              <li><strong>Prozess- & Qualitätsmanagement</strong>: integrierte Managementsysteme, Audit-/TQM-Denken (ISO/TS 16949, TQM).</li>
+              <li><strong>Digitalisierung & KI</strong>: KI-gestützte Tools als Assistenz in Analyse, Dokumentation und Prozessdesign.</li>
+            </ul>
+          </section>
+
+          <section id="change">
+            <div class="h2row">
+              <h2>Leadership & Change</h2>
+              <div class="jp-label">Change</div>
+            </div>
+            <p class="lede">
+              Seminare/Trainings zu Führung, Projektmanagement, Change und Prozessoptimierung –
+              je nach Bedarf im Seminarraum oder direkt „on the job“ (inkl. Arbeiten in/mit Systemen).
+            </p>
+
+            <ul>
+              <li>Führungskräftecoaching und Begleitung von Change-Prozessen.</li>
+              <li>Workshops zur Prozess- und Organisationsentwicklung.</li>
+              <li>Praxisnaher Transfer: vom Konzept in die operative Umsetzung.</li>
+            </ul>
+          </section>
+
+          <section id="cv">
+            <div class="h2row">
+              <h2>Werdegang (Auszug)</h2>
+              <div class="jp-label">Timeline</div>
+            </div>
+
+            <dl>
+              <div>
+                <dt>Seit 2022</dt>
+                <dd><strong>IDM Campus</strong> – Wissenschaftlicher Bereichsleiter.</dd>
+              </div>
+              <div>
+                <dt>Seit 2010</dt>
+                <dd><strong>BPC Bornemann & Partner Consulting GmbH</strong> – Eigentümer & Geschäftsführer.</dd>
+              </div>
+              <div>
+                <dt>Seit 2007 / Seit 2019</dt>
+                <dd><strong>FH Campus02</strong> (Lektor) · <strong>FH Joanneum</strong> (Lehrtätigkeit).</dd>
+              </div>
+              <div>
+                <dt>Ausbildung</dt>
+                <dd>Doktorat BWL (2002), Master Wirtschaftspädagogik (2001), Master BWL (1999) – Karl-Franzens-Universität Graz (teilweise WU Wien).</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section id="kontakt">
+            <div class="h2row">
+              <h2>Kontakt</h2>
+              <div class="jp-label">Contact</div>
+            </div>
+            <p class="lede">
+              Für Coaching, Trainings oder Prozess-/Change-Begleitung: Kontakt über Bornemann & Partner.
+            </p>
+
+            <div class="actions">
+              <a class="btn primary" href="https://www.bornemannundpartner.at/kontakt/">Kontakt</a>
+              <a class="btn" href="https://www.bornemannundpartner.at/ueber/dr-helmut-krassnigg/">Profilseite</a>
+              <a class="btn" href="#" aria-disabled="true" title="LinkedIn-URL hier eintragen">LinkedIn</a>
+            </div>
+          </section>
+
+          <footer>
+            Designidee: moderne Rail-Struktur mit ruhiger Typografie, viel Raum und klaren Sektionen.
+          </footer>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
