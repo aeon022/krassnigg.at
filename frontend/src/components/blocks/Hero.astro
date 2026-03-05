@@ -178,6 +178,7 @@ const hasImage = !!resolvedHeroImage;
           alt={name + " - " + title}
           width={1200}
           height={800}
+          quality="high"
           class="w-full h-[38vh] min-h-[220px] max-h-[340px] object-cover grayscale-[0.2]"
           loading="eager"
         />
@@ -200,7 +201,7 @@ const hasImage = !!resolvedHeroImage;
     <div class="pb-8 md:pb-10">
       <a
         href="#profil"
-        class="scroll-cta inline-flex flex-col items-start gap-2 text-kyoto-accent/40 hover:text-kyoto-accent transition-all duration-500 group"
+        class="scroll-cta inline-flex flex-col items-start gap-2 text-kyoto-accent/70 hover:text-kyoto-accent transition-all duration-500 group"
       >
         <span class="scroll-cta-label font-sans text-[0.6rem] uppercase tracking-[0.3em]">{discoverLabel}</span>
         <div class="scroll-line-shell w-[1px] h-12 bg-kyoto-accent/20 overflow-hidden relative transition-colors duration-300">
@@ -217,6 +218,7 @@ const hasImage = !!resolvedHeroImage;
         alt={name + " - " + title}
         width={800}
         height={1200}
+        quality="high"
         class="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
         loading="eager"
       />

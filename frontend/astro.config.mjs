@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, passthroughImageService } from 'astro/config';
+import { defineConfig } from 'astro/config';
 import tailwind from "@astrojs/tailwind";
 import keystatic from '@keystatic/astro';
 import react from "@astrojs/react";
@@ -19,8 +19,5 @@ export default defineConfig({
   site: siteUrl,
   base: basePath,
   output: 'static',
-  image: {
-    service: passthroughImageService(),
-  },
   integrations: [tailwind(), react(), ...(enableKeystatic ? [keystatic()] : [])]
 });
