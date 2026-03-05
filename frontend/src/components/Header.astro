@@ -401,9 +401,10 @@ const socialEntries = [
             <div class="nav-links">
               <a class:list={["menu-link is-main", { active: isActive("/") }]} href="/">Startseite</a>
               <a class="menu-link is-sub" href="/#profil">Profil</a>
-              <a class="menu-link is-sub" href="/#experience">Beruflicher Werdegang</a>
-              <a class="menu-link is-sub" href="/#education">Ausbildung</a>
-              <a class="menu-link is-sub" href="/#expertise">Expertise</a>
+              <a class="menu-link is-sub" href="/experience">Beruflicher Werdegang</a>
+              <a class="menu-link is-sub" href="/education">Ausbildung</a>
+              <a class="menu-link is-sub" href="/certifications">Zertifizierungen</a>
+              <a class="menu-link is-sub" href="/expertise">Expertise</a>
               <a class:list={["menu-link is-main", { active: isActive("/kontakt") }]} href="/kontakt">Kontakt</a>
             </div>
           </div>
@@ -435,54 +436,7 @@ const socialEntries = [
 </header>
 
 <script>
-  const headerInitKey = "__krassniggHeaderInit";
-
-  const initHeaderMenu = () => {
-    if (window[headerInitKey]) return;
-    window[headerInitKey] = true;
-
-    const menuShell = document.querySelector(".menu-shell");
-    if (!(menuShell instanceof HTMLElement)) return;
-
-    const toggleBtn = menuShell.querySelector(".menu-toggle");
-    const closeBtn = menuShell.querySelector(".offcanvas-close");
-    const navLinks = menuShell.querySelectorAll(".offcanvas-panel a");
-
-    const setOpen = (open) => {
-      if (!(toggleBtn instanceof HTMLButtonElement)) return;
-      menuShell.dataset.open = open ? "true" : "false";
-      toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    };
-
-    if (toggleBtn instanceof HTMLButtonElement) {
-      toggleBtn.addEventListener("click", () => {
-        const open = menuShell.dataset.open === "true";
-        setOpen(!open);
-      });
-    }
-
-    if (closeBtn instanceof HTMLButtonElement) {
-      closeBtn.addEventListener("click", () => setOpen(false));
-    }
-
-    navLinks.forEach((link) => {
-      if (!(link instanceof HTMLAnchorElement)) return;
-      link.addEventListener("click", () => {
-        setOpen(false);
-      });
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") setOpen(false);
-    });
-
-    document.addEventListener("click", (event) => {
-      if (menuShell.dataset.open !== "true") return;
-      const target = event.target;
-      if (!(target instanceof Node)) return;
-      if (!menuShell.contains(target)) setOpen(false);
-    });
-  };
-
+  import { initHeaderMenu } from "../assets/menu.js";
   initHeaderMenu();
+  document.addEventListener("astro:page-load", initHeaderMenu);
 </script>

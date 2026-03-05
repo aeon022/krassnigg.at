@@ -1,0 +1,14 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ExperienceTimeline from "../../components/blocks/ExperienceTimeline.astro";
+
+const experienceList = await getCollection("experience");
+const sortedExperience = experienceList.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+---
+
+<BaseLayout title="Beruflicher Werdegang" description="Beruflicher Werdegang von Dr. Helmut Krassnigg">
+  <div class="max-w-6xl mx-auto px-8 md:px-14 lg:px-20 pb-10 md:pb-12">
+    <ExperienceTimeline items={sortedExperience} />
+  </div>
+</BaseLayout>

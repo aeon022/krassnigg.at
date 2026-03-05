@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const certificationList = await getCollection("certifications");
+const sortedCertifications = certificationList.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+---
+
+<BaseLayout title="Zertifizierungen" description="Zertifizierungen von Dr. Helmut Krassnigg">
+    <div class="max-w-6xl mx-auto px-8 md:px-14 lg:px-20 pb-10 md:pb-12">
+        <section id="certifications" class="scroll-fx mt-20 border-t border-shibui pt-10">
+            <h2 class="section-kicker mb-6">Zertifizierungen</h2>
+            <ul class="m-0 p-0 flex flex-col gap-3">
+                {sortedCertifications.map((cert) => (
+                  <li class="list-none font-sans text-[0.88rem] leading-[1.5] text-kyoto-text/80">
+                    <a href={`/certifications/${cert.id}`} class="hover:text-kyoto-accent transition-colors duration-300">
+                      {cert.data.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+        </section>
+    </div>
+</BaseLayout>

@@ -1,0 +1,29 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const educationEntries = await getCollection("education");
+  return educationEntries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"education">;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+---
+
+<BaseLayout title={data.degree} description={data.details}>
+  <div class="max-w-6xl mx-auto px-8 md:px-14 lg:px-20 pb-10 md:pb-12">
+    <h1 class="text-4xl font-bold mb-4">{data.degree}</h1>
+    <p class="text-lg">{data.institution}</p>
+    <p class="text-lg">{data.year}</p>
+    <p class="text-lg">{data.details}</p>
+  </div>
+</BaseLayout>

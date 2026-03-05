@@ -33,9 +33,10 @@ const serializedSchema =
   schemaOrg && (Array.isArray(schemaOrg) ? schemaOrg.length > 0 : true)
     ? JSON.stringify(schemaOrg)
     : undefined;
+void keywords;
 ---
 
-<html lang="de">
+<html lang="de-AT">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -47,7 +48,6 @@ const serializedSchema =
     <meta name="description" content={description} />
     <meta name="robots" content={robotsContent} />
     <meta name="author" content="Dr. Helmut Krassnigg" />
-    {keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:locale" content="de_AT" />
     <meta property="og:type" content="website" />
@@ -108,72 +108,5 @@ const serializedSchema =
 
     <slot />
     <Footer />
-    <script>
-      const sectionOffset = 96;
-      const smoothScrollInitKey = "__krassniggSmoothScrollInit";
-
-      const scrollToSectionId = (id) => {
-        if (!id) return;
-        const target = document.getElementById(id);
-        if (!target) return;
-        requestAnimationFrame(() => {
-          const top = target.getBoundingClientRect().top + window.scrollY - sectionOffset;
-          window.scrollTo({ top, behavior: "smooth" });
-        });
-      };
-
-      const applyHashScroll = () => {
-        if (window.location.pathname !== "/") return;
-
-        const pendingId = sessionStorage.getItem("pending-hash-scroll");
-        if (pendingId) {
-          sessionStorage.removeItem("pending-hash-scroll");
-          scrollToSectionId(pendingId);
-          history.replaceState(null, "", `/#${pendingId}`);
-          return;
-        }
-
-        if (window.location.hash.length <= 1) return;
-        const hashId = window.location.hash.slice(1);
-        scrollToSectionId(hashId);
-      };
-
-      const initSmoothSectionLinks = () => {
-        if (window[smoothScrollInitKey]) return;
-        window[smoothScrollInitKey] = true;
-
-        document.addEventListener("click", (event) => {
-          const target = event.target;
-          if (!(target instanceof Element)) return;
-
-          const anchor = target.closest('a[href^="#"], a[href^="/#"]');
-          if (!(anchor instanceof HTMLAnchorElement)) return;
-
-          const href = anchor.getAttribute("href") || "";
-          if (!href || href === "#") return;
-
-          const hash = href.startsWith("/#") ? href.slice(1) : href;
-          const id = hash.replace(/^#/, "");
-          if (!id) return;
-
-          if (window.location.pathname === "/") {
-            const section = document.getElementById(id);
-            if (!section) return;
-            event.preventDefault();
-            scrollToSectionId(id);
-            history.replaceState(null, "", `/#${id}`);
-            return;
-          }
-
-          event.preventDefault();
-          sessionStorage.setItem("pending-hash-scroll", id);
-          window.location.assign(`/#${id}`);
-        });
-      };
-
-      initSmoothSectionLinks();
-      applyHashScroll();
-      document.addEventListener("astro:page-load", applyHashScroll);
-    </script>
   </body>
 </html>

@@ -2,8 +2,8 @@
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
-  degrees: CollectionEntry<"education">["data"][];
-  certifications: CollectionEntry<"certifications">["data"][];
+  degrees: CollectionEntry<"education">[];
+  certifications: CollectionEntry<"certifications">[];
 }
 
 const { degrees = [], certifications = [] } = Astro.props as Props;
@@ -17,25 +17,29 @@ const { degrees = [], certifications = [] } = Astro.props as Props;
     <div>
       {degrees.map((item, i) => (
         <div class={`grid grid-cols-[56px_1fr] gap-6 py-5 ${i < degrees.length - 1 ? 'border-b border-shibui' : ''}`}>
-          <p class="m-0 font-sans text-[11px] tracking-[0.1em] text-kyoto-sub font-semibold pt-0.5">{item.year}</p>
+          <p class="m-0 font-sans text-[11px] tracking-[0.1em] text-kyoto-sub font-semibold pt-0.5">{item.data.year}</p>
           <div>
-            <p class="m-0 font-serif text-[clamp(0.95rem,1.4vw,1.1rem)] leading-[1.25]">{item.degree}</p>
+            <p class="m-0 font-serif text-[clamp(0.95rem,1.4vw,1.1rem)] leading-[1.25]">
+              <a href={`/education/${item.id}`} class="hover:text-kyoto-accent transition-colors duration-300">
+                {item.data.degree}
+              </a>
+            </p>
             <p class="m-0 mt-1 font-sans text-[0.8rem] tracking-[0.04em] text-kyoto-sub">
-              {item.institutionUrl ? (
+              {item.data.institutionUrl ? (
                 <a
-                  href={item.institutionUrl}
+                  href={item.data.institutionUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="hover:text-kyoto-accent transition-colors duration-300"
                 >
-                  {item.institution}
+                  {item.data.institution}
                 </a>
               ) : (
-                item.institution
+                item.data.institution
               )}
             </p>
-            {item.details && (
-              <p class="m-0 mt-2 text-[0.84rem] leading-[1.5] text-kyoto-text/75">{item.details}</p>
+            {item.data.details && (
+              <p class="m-0 mt-2 text-[0.84rem] leading-[1.5] text-kyoto-text/75">{item.data.details}</p>
             )}
           </div>
         </div>
@@ -47,7 +51,11 @@ const { degrees = [], certifications = [] } = Astro.props as Props;
       <h3 class="section-kicker mb-5">Zertifizierungen</h3>
       <ul class="m-0 p-0 flex flex-col gap-3">
         {certifications.map((cert) => (
-          <li class="list-none font-sans text-[0.88rem] leading-[1.5] text-kyoto-text/80">{cert.title}</li>
+          <li class="list-none font-sans text-[0.88rem] leading-[1.5] text-kyoto-text/80">
+            <a href={`/certifications/${cert.id}`} class="hover:text-kyoto-accent transition-colors duration-300">
+              {cert.data.title}
+            </a>
+          </li>
         ))}
       </ul>
     </div>

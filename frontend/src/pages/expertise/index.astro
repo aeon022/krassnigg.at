@@ -1,0 +1,21 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ExpertiseBlock from "../../components/blocks/ExpertiseBlock.astro";
+
+const expertiseList = await getCollection("expertise");
+const sortedExpertise = expertiseList.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+---
+
+<BaseLayout title="Expertise" description="Expertise von Dr. Helmut Krassnigg">
+    <div class="max-w-6xl mx-auto px-8 md:px-14 lg:px-20 pb-10 md:pb-12">
+        <section id="expertise" class="scroll-fx mt-20 border-t border-shibui pt-10">
+            <h2 class="section-kicker mb-6">Expertise</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {sortedExpertise.map((item) => (
+                <ExpertiseBlock expertise={item} />
+              ))}
+            </div>
+        </section>
+    </div>
+</BaseLayout>

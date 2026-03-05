@@ -35,6 +35,36 @@ const socialEntries = [
 ]
   .map((item) => ({ ...item, href: socialLinks[item.key as keyof typeof socialLinks] }))
   .filter((item) => typeof item.href === "string" && item.href.length > 0);
+const siteBase = Astro.site ? new URL(Astro.site).toString() : Astro.url.origin;
+const contactSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Kontakt",
+    url: new URL("/kontakt", siteBase).toString(),
+    inLanguage: "de-AT",
+    description: pageDescription,
+    about: {
+      "@type": "Person",
+      name,
+      email: `mailto:${email}`,
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name,
+    url: siteBase,
+    email: email ? `mailto:${email}` : undefined,
+    areaServed: "AT",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: location,
+      addressCountry: "AT",
+    },
+    sameAs: socialEntries.map((entry) => entry.href),
+  },
+];
 ---
 
 <style>
@@ -51,6 +81,7 @@ const socialEntries = [
   canonicalPath="/kontakt"
   keywords={["Kontakt", "Coaching", "Training", "Prozessbegleitung"]}
   image="/og-image.jpg"
+  schemaOrg={contactSchema}
 >
   <main class="max-w-6xl mx-auto px-8 md:px-14 lg:px-20 py-14 md:py-16">
     <h1 class="m-0 font-serif text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.1]">Kontakt</h1>

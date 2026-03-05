@@ -160,14 +160,14 @@ const websiteSchema = {
 
       <!-- 3. Experience -->
       <div class="scroll-fx">
-        <ExperienceTimeline items={sortedExperience.map((entry) => entry.data)} />
+        <ExperienceTimeline items={sortedExperience} />
       </div>
 
       <!-- 4. Education -->
       <div class="scroll-fx">
         <Education
-          degrees={sortedEducation.map((entry) => entry.data)}
-          certifications={sortedCertifications.map((entry) => entry.data)}
+          degrees={sortedEducation}
+          certifications={sortedCertifications}
         />
       </div>
 
@@ -176,7 +176,7 @@ const websiteSchema = {
         <h2 class="section-kicker mb-6">Expertise</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {sortedExpertise.map((item) => (
-            <ExpertiseBlock expertise={item.data} />
+            <ExpertiseBlock expertise={item} />
           ))}
         </div>
       </section>
