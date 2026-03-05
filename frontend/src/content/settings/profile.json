@@ -11,5 +11,8 @@
   "discoverLabel": "Entdecken",
   "heroImage": "../../assets/images/profile/heroImage.jpg",
   "contactEmail": "helmut@krassnigg.at",
-  "location": "Graz, Österreich"
+  "location": "Graz, Österreich",
+  "socialLinks": {
+    "linkedin": "https://www.linkedin.com/in/helmut-krassnigg/"
+  }
 }

@@ -1,0 +1,21 @@
+<footer class="border-t border-shibui py-10">
+  <div class="max-w-6xl mx-auto px-8 md:px-14 lg:px-20 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+    <p class="text-xs uppercase tracking-[0.14em] text-kyoto-sub">&copy; <span data-current-year>{new Date().getFullYear()}</span> Dr. Helmut Krassnigg. Alle Rechte vorbehalten.</p>
+    <nav aria-label="Rechtliches" class="flex items-center gap-4 text-[0.72rem] uppercase tracking-[0.12em]">
+      <a href="/impressum" class="text-kyoto-sub hover:text-kyoto-accent transition-colors">Impressum</a>
+      <a href="/datenschutz" class="text-kyoto-sub hover:text-kyoto-accent transition-colors">Datenschutz</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  const updateFooterYear = () => {
+    const year = String(new Date().getFullYear());
+    document.querySelectorAll("[data-current-year]").forEach((el) => {
+      el.textContent = year;
+    });
+  };
+
+  updateFooterYear();
+  document.addEventListener("astro:page-load", updateFooterYear);
+</script>

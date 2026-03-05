@@ -1,29 +1,179 @@
 ---
 // Dateipfad: frontend/src/layouts/BaseLayout.astro
+import { ViewTransitions } from "astro:transitions";
+
 interface Props {
   title: string;
   description?: string;
+  canonicalPath?: string;
+  image?: string;
+  noindex?: boolean;
+  keywords?: string[];
+  schemaOrg?: Record<string, unknown> | Record<string, unknown>[];
 }
-const { title, description = "Dr. Helmut Krassnigg - Profil" } = Astro.props;
+const {
+  title,
+  description = "Dr. Helmut Krassnigg - Profil",
+  canonicalPath = Astro.url.pathname,
+  image,
+  noindex = false,
+  keywords = [],
+  schemaOrg,
+} = Astro.props;
 import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const siteUrl = Astro.site ? new URL(Astro.site) : new URL(Astro.url.origin);
+const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
+const pageTitle = title.includes("Krassnigg") ? title : `${title} | Dr. Helmut Krassnigg`;
+const robotsContent = noindex ? "noindex, nofollow" : "index, follow";
+const socialImageUrl = image ? new URL(image, siteUrl).toString() : undefined;
+const serializedSchema =
+  schemaOrg && (Array.isArray(schemaOrg) ? schemaOrg.length > 0 : true)
+    ? JSON.stringify(schemaOrg)
+    : undefined;
 ---
 
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+    <ViewTransitions />
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content={robotsContent} />
+    <meta name="author" content="Dr. Helmut Krassnigg" />
+    {keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:locale" content="de_AT" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Dr. Helmut Krassnigg" />
+    {socialImageUrl && <meta property="og:image" content={socialImageUrl} />}
+    <meta name="twitter:card" content={socialImageUrl ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {socialImageUrl && <meta name="twitter:image" content={socialImageUrl} />}
+    <link rel="alternate" hrefLang="de-AT" href={canonicalUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet" />
+    {serializedSchema && (
+      <script type="application/ld+json" set:html={serializedSchema}></script>
+    )}
+    <style>
+      ::view-transition-old(root) {
+        animation: page-fade-out 240ms ease both;
+      }
+
+      ::view-transition-new(root) {
+        animation: page-fade-in 420ms ease both;
+      }
+
+      @keyframes page-fade-in {
+        from {
+          opacity: 0;
+          filter: blur(4px);
+          transform: scale(0.997);
+        }
+        to {
+          opacity: 1;
+          filter: blur(0);
+          transform: scale(1);
+        }
+      }
+
+      @keyframes page-fade-out {
+        from {
+          opacity: 1;
+          filter: blur(0);
+          transform: scale(1);
+        }
+        to {
+          opacity: 0;
+          filter: blur(2px);
+          transform: scale(1.002);
+        }
+      }
+    </style>
   </head>
   <body class="bg-kyoto-bg text-kyoto-text selection:bg-kyoto-accent selection:text-white">
+    <Header />
+
     <slot />
-    <footer class="border-t border-shibui mt-20 py-10">
-      <div class="max-w-6xl mx-auto px-8 md:px-14 lg:px-20">
-        <p class="text-xs uppercase tracking-[0.14em] text-kyoto-sub">&copy; {new Date().getFullYear()} Dr. Helmut Krassnigg. Alle Rechte vorbehalten.</p>
-      </div>
-    </footer>
+    <Footer />
+    <script>
+      const sectionOffset = 96;
+      const smoothScrollInitKey = "__krassniggSmoothScrollInit";
+
+      const scrollToSectionId = (id) => {
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (!target) return;
+        requestAnimationFrame(() => {
+          const top = target.getBoundingClientRect().top + window.scrollY - sectionOffset;
+          window.scrollTo({ top, behavior: "smooth" });
+        });
+      };
+
+      const applyHashScroll = () => {
+        if (window.location.pathname !== "/") return;
+
+        const pendingId = sessionStorage.getItem("pending-hash-scroll");
+        if (pendingId) {
+          sessionStorage.removeItem("pending-hash-scroll");
+          scrollToSectionId(pendingId);
+          history.replaceState(null, "", `/#${pendingId}`);
+          return;
+        }
+
+        if (window.location.hash.length <= 1) return;
+        const hashId = window.location.hash.slice(1);
+        scrollToSectionId(hashId);
+      };
+
+      const initSmoothSectionLinks = () => {
+        if (window[smoothScrollInitKey]) return;
+        window[smoothScrollInitKey] = true;
+
+        document.addEventListener("click", (event) => {
+          const target = event.target;
+          if (!(target instanceof Element)) return;
+
+          const anchor = target.closest('a[href^="#"], a[href^="/#"]');
+          if (!(anchor instanceof HTMLAnchorElement)) return;
+
+          const href = anchor.getAttribute("href") || "";
+          if (!href || href === "#") return;
+
+          const hash = href.startsWith("/#") ? href.slice(1) : href;
+          const id = hash.replace(/^#/, "");
+          if (!id) return;
+
+          if (window.location.pathname === "/") {
+            const section = document.getElementById(id);
+            if (!section) return;
+            event.preventDefault();
+            scrollToSectionId(id);
+            history.replaceState(null, "", `/#${id}`);
+            return;
+          }
+
+          event.preventDefault();
+          sessionStorage.setItem("pending-hash-scroll", id);
+          window.location.assign(`/#${id}`);
+        });
+      };
+
+      initSmoothSectionLinks();
+      applyHashScroll();
+      document.addEventListener("astro:page-load", applyHashScroll);
+    </script>
   </body>
 </html>

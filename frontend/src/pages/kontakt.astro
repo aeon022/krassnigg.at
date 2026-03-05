@@ -1,0 +1,205 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+
+const profile = await getEntry("settings", "profile");
+const pageDescription = "Kontaktseite für Anfragen zu Coaching, Trainings und Prozessbegleitung.";
+const name = profile?.data.name ?? "Dr. Helmut Krassnigg";
+const email = profile?.data.contactEmail ?? "helmut@krassnigg.at";
+const location = profile?.data.location ?? "Graz, Österreich";
+const socialLinks = profile?.data.socialLinks ?? {};
+const focusItems = profile?.data.focusItems ?? [];
+const expertiseList = await getCollection("expertise");
+const profileSections = await getCollection("profileSections");
+const topExpertise = expertiseList
+  .sort((a, b) => (a.data.order || 0) - (b.data.order || 0))
+  .slice(0, 4)
+  .map((entry) => entry.data.title);
+const topSectionSummaries = profileSections
+  .sort((a, b) => (a.data.order || 0) - (b.data.order || 0))
+  .slice(0, 2)
+  .map((entry) => {
+    const firstSentence = entry.data.content.split(/\.\s/)[0]?.trim();
+    return {
+      heading: entry.data.heading,
+      summary: firstSentence ? `${firstSentence}.` : entry.data.content,
+    };
+  });
+const socialEntries = [
+  { key: "linkedin", label: "LinkedIn" },
+  { key: "facebook", label: "Facebook" },
+  { key: "instagram", label: "Instagram" },
+  { key: "x", label: "X" },
+  { key: "bluesky", label: "Bluesky" },
+  { key: "youtube", label: "YouTube" },
+]
+  .map((item) => ({ ...item, href: socialLinks[item.key as keyof typeof socialLinks] }))
+  .filter((item) => typeof item.href === "string" && item.href.length > 0);
+---
+
+<style>
+  .kontakt-copy {
+    text-wrap: pretty;
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+</style>
+
+<BaseLayout
+  title="Kontakt"
+  description={pageDescription}
+  canonicalPath="/kontakt"
+  keywords={["Kontakt", "Coaching", "Training", "Prozessbegleitung"]}
+  image="/og-image.jpg"
+>
+  <main class="max-w-6xl mx-auto px-8 md:px-14 lg:px-20 py-14 md:py-16">
+    <h1 class="m-0 font-serif text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.1]">Kontakt</h1>
+    <p class="kontakt-copy mt-5 mb-0 text-sm md:text-[0.95rem] leading-[1.8] text-kyoto-text/80 max-w-[62ch]">
+      Schreiben Sie mir direkt für Anfragen zu Unternehmensentwicklung, Aftersales, Leadership, Training und Prozessoptimierung.
+    </p>
+
+    <section class="mt-16 md:mt-20 grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-12">
+      <article class="lg:col-span-7 border border-shibui p-6 md:p-8">
+        <h2 class="section-kicker mb-5">Direktkontakt</h2>
+        <p class="m-0 text-[1.06rem] md:text-[1.18rem] leading-[1.45]">{name}</p>
+        <p class="m-0 mt-2 text-[0.88rem] tracking-[0.08em] uppercase text-kyoto-sub">{location}</p>
+
+        <div class="mt-6 flex flex-wrap items-center gap-2.5">
+          <a
+            href={`mailto:${email}`}
+            class="inline-flex items-center border border-shibui px-4 py-2.5 text-sm md:text-base tracking-[0.04em] hover:text-kyoto-accent hover:border-kyoto-accent/50 transition-colors"
+          >
+            {email}
+          </a>
+          <a
+            href="https://www.bornemannundpartner.at"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center border border-shibui px-4 py-2.5 text-sm md:text-base tracking-[0.04em] hover:text-kyoto-accent hover:border-kyoto-accent/50 transition-colors"
+          >
+            bornemannundpartner.at
+          </a>
+        </div>
+
+        {socialEntries.length > 0 && (
+          <div class="mt-6 flex flex-wrap items-center gap-2.5">
+            {socialEntries.map((social) => (
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer me"
+                class="inline-flex items-center border border-shibui px-3 py-1.5 text-[0.72rem] uppercase tracking-[0.12em] text-kyoto-sub hover:text-kyoto-accent hover:border-kyoto-accent/50 transition-colors"
+              >
+                {social.label}
+              </a>
+            ))}
+          </div>
+        )}
+      </article>
+
+      <article class="lg:col-span-5 border border-shibui p-6 md:p-8">
+        <h2 class="section-kicker mb-5">Standort</h2>
+        <div class="aspect-[4/3] border border-shibui overflow-hidden">
+          <iframe
+            title="Google Map - Graz"
+            class="w-full h-full"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Graz,+Austria&output=embed"
+          ></iframe>
+        </div>
+      <p class="kontakt-copy m-0 mt-4 text-sm text-kyoto-text/80">
+          Graz, Österreich. Termine nach Vereinbarung (online oder vor Ort).
+        </p>
+      </article>
+    </section>
+
+    <section class="mt-20 md:mt-24 border-t border-shibui pt-10">
+      <h2 class="section-kicker mb-6">Für Neue Anfragen</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-6">
+        <article class="border border-shibui p-5 md:p-6 lg:col-span-7">
+          <p class="m-0 text-[0.66rem] uppercase tracking-[0.14em] text-kyoto-sub">Was Sie hier bekommen</p>
+          <p class="kontakt-copy m-0 mt-3 text-sm md:text-[0.95rem] leading-[1.8] text-kyoto-text/82 max-w-[64ch]">
+            {profile?.data.bio}
+          </p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            {(focusItems.length > 0 ? focusItems : topExpertise).map((item) => (
+              <span class="inline-flex border border-shibui px-2.5 py-1 text-[0.62rem] uppercase tracking-[0.12em] text-kyoto-sub">
+                {item}
+              </span>
+            ))}
+          </div>
+        </article>
+
+        <article class="border border-shibui p-5 md:p-6 lg:col-span-5">
+          <p class="m-0 text-[0.66rem] uppercase tracking-[0.14em] text-kyoto-sub">Für Ihre Anfrage</p>
+          <ul class="kontakt-copy m-0 mt-3 pl-0 list-none text-sm leading-[1.85] text-kyoto-text/82 space-y-1.5">
+            <li>Unternehmen, Rolle und Ausgangssituation</li>
+            <li>Gewünschter Schwerpunkt und Zielbild</li>
+            <li>Zeitrahmen und bevorzugtes Format (online oder vor Ort)</li>
+            <li>Erwartete Wirkung oder relevante KPI</li>
+          </ul>
+        </article>
+      </div>
+
+      {topSectionSummaries.length > 0 && (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
+          {topSectionSummaries.map((entry) => (
+            <article class="border border-shibui p-5 md:p-6 min-h-[170px]">
+              <p class="m-0 text-[0.66rem] uppercase tracking-[0.14em] text-kyoto-sub">{entry.heading}</p>
+              <p class="kontakt-copy m-0 mt-3 text-sm leading-[1.8] text-kyoto-text/82">{entry.summary}</p>
+            </article>
+          ))}
+        </div>
+      )}
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
+        <article class="border border-shibui p-5 md:p-6 min-h-[140px]">
+          <p class="m-0 text-[0.66rem] uppercase tracking-[0.14em] text-kyoto-sub">1. Erstkontakt</p>
+          <p class="kontakt-copy m-0 mt-2 text-sm leading-[1.75] text-kyoto-text/78">
+            Kurze Einordnung Ihrer Anfrage und Klärung von Ziel, Umfang und Priorität.
+          </p>
+        </article>
+        <article class="border border-shibui p-5 md:p-6 min-h-[140px]">
+          <p class="m-0 text-[0.66rem] uppercase tracking-[0.14em] text-kyoto-sub">2. Scoping</p>
+          <p class="kontakt-copy m-0 mt-2 text-sm leading-[1.75] text-kyoto-text/78">
+            Strukturierter Vorschlag zu Vorgehen, Formaten und messbaren Ergebnissen.
+          </p>
+        </article>
+        <article class="border border-shibui p-5 md:p-6 min-h-[140px]">
+          <p class="m-0 text-[0.66rem] uppercase tracking-[0.14em] text-kyoto-sub">3. Umsetzung</p>
+          <p class="kontakt-copy m-0 mt-2 text-sm leading-[1.75] text-kyoto-text/78">
+            Start mit klaren Verantwortlichkeiten, Review-Zyklen und Fokus auf Wirkung.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="mt-20 md:mt-24 border-t border-shibui pt-10">
+      <h2 class="section-kicker mb-6">Kurz Vorab</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+        <article class="border border-shibui p-5 md:p-6">
+          <p class="m-0 text-[0.66rem] uppercase tracking-[0.14em] text-kyoto-sub">Häufige Fragen</p>
+          <div class="mt-4 space-y-4 text-sm leading-[1.75] text-kyoto-text/82">
+            <p class="kontakt-copy m-0"><strong class="text-kyoto-text">Für wen ist die Zusammenarbeit gedacht?</strong> Für Unternehmen, Teams und Führungskräfte mit konkretem Veränderungs- oder Optimierungsbedarf.</p>
+            <p class="kontakt-copy m-0"><strong class="text-kyoto-text">Wie schnell ist ein Erstgespräch möglich?</strong> In der Regel kurzfristig per E-Mail-Anfrage mit ein paar Eckdaten zu Ihrem Vorhaben.</p>
+            <p class="kontakt-copy m-0"><strong class="text-kyoto-text">Welche Formate sind möglich?</strong> Beratung, Workshop, Training und Coaching - online oder vor Ort in Graz und darüber hinaus.</p>
+          </div>
+        </article>
+        <article class="border border-shibui p-5 md:p-6">
+          <p class="m-0 text-[0.66rem] uppercase tracking-[0.14em] text-kyoto-sub">Direkter Einstieg</p>
+          <p class="kontakt-copy m-0 mt-3 text-sm leading-[1.8] text-kyoto-text/82">
+            Wenn Sie über Google auf dieser Seite gelandet sind, starten Sie am schnellsten mit einer kurzen Anfrage per E-Mail.
+            Nennen Sie Ziel, Zeitrahmen und Kontext. Sie erhalten eine klare erste Einschätzung, ob und wie die Zusammenarbeit aufgebaut werden kann.
+          </p>
+          <a
+            href={`mailto:${email}`}
+            class="inline-flex mt-5 items-center border border-shibui px-4 py-2.5 text-sm tracking-[0.05em] hover:text-kyoto-accent hover:border-kyoto-accent/50 transition-colors"
+          >
+            Anfrage senden
+          </a>
+        </article>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

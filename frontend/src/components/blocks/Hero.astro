@@ -171,6 +171,19 @@ const hasImage = !!resolvedHeroImage;
 
     <div class="border-t border-kyoto-accent/10"></div>
 
+    {hasImage && (
+      <div class="md:hidden mt-5 mb-2 overflow-hidden border border-kyoto-accent/10 relative">
+        <Image
+          src={resolvedHeroImage as ImageMetadata}
+          alt={name}
+          width={1200}
+          height={800}
+          class="w-full h-[38vh] min-h-[220px] max-h-[340px] object-cover grayscale-[0.2]"
+          loading="eager"
+        />
+      </div>
+    )}
+
     <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] py-7 md:py-9 items-center">
       <p class="hero-description m-0 text-[0.95rem] md:text-[1.05rem] leading-[1.8] text-kyoto-text/80">
         {heroIntro}

@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getEntry } from "astro:content";
+
+const profile = await getEntry("settings", "profile");
+const siteUrl = Astro.site ? new URL("/", Astro.site).toString() : "https://krassnigg.at/";
+const legalName = profile?.data.name ?? "Dr. Helmut Krassnigg";
+const email = profile?.data.contactEmail ?? "office@example.at";
+const location = profile?.data.location ?? "Graz, Österreich";
+---
+
+<BaseLayout
+  title="Impressum"
+  description="Impressum gemäß österreichischer Rechtslage (ECG, UGB, GewO, MedienG)."
+  canonicalPath="/impressum"
+  keywords={["Impressum", "Österreich", "ECG", "Mediengesetz"]}
+>
+  <main class="max-w-4xl mx-auto px-8 md:px-14 lg:px-20 py-14 md:py-16">
+    <a href="/" class="inline-flex items-center mb-6 text-[0.72rem] uppercase tracking-[0.12em] text-kyoto-sub hover:text-kyoto-accent transition-colors">
+      ← Zur Startseite
+    </a>
+    <h1 class="m-0 font-serif text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.1]">Impressum</h1>
+    <p class="mt-5 mb-0 text-sm md:text-[0.95rem] leading-[1.8] text-kyoto-text/80">
+      Angaben gemäß § 5 E-Commerce-Gesetz (ECG), § 14 UGB, § 63 GewO und Offenlegung nach § 25 Mediengesetz.
+    </p>
+
+    <section class="mt-10 border-t border-shibui pt-8">
+      <h2 class="section-kicker mb-3">Diensteanbieter</h2>
+      <p class="m-0 leading-[1.8]">{legalName}</p>
+      <p class="m-0 leading-[1.8]">{location}</p>
+      <p class="m-0 leading-[1.8]">
+        E-Mail: <a class="hover:text-kyoto-accent transition-colors" href={`mailto:${email}`}>{email}</a>
+      </p>
+      <p class="m-0 leading-[1.8]">
+        Website: <a class="hover:text-kyoto-accent transition-colors" href={siteUrl}>{siteUrl}</a>
+      </p>
+    </section>
+
+    <section class="mt-8 border-t border-shibui pt-8">
+      <h2 class="section-kicker mb-3">Unternehmensgegenstand</h2>
+      <p class="m-0 leading-[1.8]">Unternehmensberatung, Organisationsentwicklung, Training und Coaching.</p>
+    </section>
+
+    <section class="mt-8 border-t border-shibui pt-8">
+      <h2 class="section-kicker mb-3">Weitere Pflichtangaben (bei Bedarf ausfüllen)</h2>
+      <ul class="m-0 pl-5 leading-[1.9] text-kyoto-text/85">
+        <li>Firmenbuchnummer: [falls vorhanden]</li>
+        <li>Firmenbuchgericht: [falls vorhanden]</li>
+        <li>UID-Nummer: [falls vorhanden]</li>
+        <li>Aufsichtsbehörde: [falls reglementiertes Gewerbe]</li>
+        <li>Kammerzugehörigkeit: [WKO/Fachgruppe, falls relevant]</li>
+        <li>Berufsrechtliche Vorschriften: [falls einschlägig]</li>
+      </ul>
+    </section>
+
+    <section class="mt-8 border-t border-shibui pt-8">
+      <h2 class="section-kicker mb-3">Offenlegung gemäß § 25 Mediengesetz</h2>
+      <p class="m-0 leading-[1.8]">Medieninhaber, Herausgeber und für den Inhalt verantwortlich: {legalName}</p>
+      <p class="m-0 leading-[1.8]">Blattlinie: Information über Leistungen, Expertise und Kontaktmöglichkeiten.</p>
+    </section>
+
+    <section class="mt-8 border-t border-shibui pt-8">
+      <h2 class="section-kicker mb-3">Haftung für Inhalte und Links</h2>
+      <p class="m-0 leading-[1.8] text-kyoto-text/80">
+        Trotz sorgfältiger Kontrolle wird keine Haftung für die Inhalte externer Links übernommen. Für den Inhalt der verlinkten Seiten
+        sind ausschließlich deren Betreiber verantwortlich.
+      </p>
+    </section>
+  </main>
+</BaseLayout>

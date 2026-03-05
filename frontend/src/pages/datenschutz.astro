@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getEntry } from "astro:content";
+
+const profile = await getEntry("settings", "profile");
+const email = profile?.data.contactEmail ?? "office@example.at";
+const legalName = profile?.data.name ?? "Dr. Helmut Krassnigg";
+---
+
+<BaseLayout
+  title="Datenschutzerklärung"
+  description="Datenschutzerklärung gemäß DSGVO für krassnigg.at."
+  canonicalPath="/datenschutz"
+  keywords={["Datenschutz", "DSGVO", "Österreich"]}
+>
+  <main class="max-w-4xl mx-auto px-8 md:px-14 lg:px-20 py-14 md:py-16">
+    <a href="/" class="inline-flex items-center mb-6 text-[0.72rem] uppercase tracking-[0.12em] text-kyoto-sub hover:text-kyoto-accent transition-colors">
+      ← Zur Startseite
+    </a>
+    <h1 class="m-0 font-serif text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.1]">Datenschutzerklärung</h1>
+    <p class="mt-5 mb-0 text-sm md:text-[0.95rem] leading-[1.8] text-kyoto-text/80">
+      Diese Erklärung informiert über die Verarbeitung personenbezogener Daten gemäß Art. 13 DSGVO.
+    </p>
+
+    <section class="mt-10 border-t border-shibui pt-8">
+      <h2 class="section-kicker mb-3">Verantwortlicher</h2>
+      <p class="m-0 leading-[1.8]">{legalName}</p>
+      <p class="m-0 leading-[1.8]">
+        E-Mail: <a class="hover:text-kyoto-accent transition-colors" href={`mailto:${email}`}>{email}</a>
+      </p>
+    </section>
+
+    <section class="mt-8 border-t border-shibui pt-8">
+      <h2 class="section-kicker mb-3">Verarbeitete Daten und Zweck</h2>
+      <ul class="m-0 pl-5 leading-[1.9] text-kyoto-text/85">
+        <li>Server-Logdaten zur technischen Bereitstellung und Sicherheit der Website.</li>
+        <li>Kontaktangaben bei direkter Kontaktaufnahme per E-Mail zur Bearbeitung der Anfrage.</li>
+      </ul>
+    </section>
+
+    <section class="mt-8 border-t border-shibui pt-8">
+      <h2 class="section-kicker mb-3">Rechtsgrundlagen</h2>
+      <ul class="m-0 pl-5 leading-[1.9] text-kyoto-text/85">
+        <li>Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an sicherem Betrieb).</li>
+        <li>Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Kommunikation bei Anfragen).</li>
+      </ul>
+    </section>
+
+    <section class="mt-8 border-t border-shibui pt-8">
+      <h2 class="section-kicker mb-3">Speicherdauer</h2>
+      <p class="m-0 leading-[1.8] text-kyoto-text/80">
+        Daten werden nur so lange gespeichert, wie dies für die jeweiligen Zwecke erforderlich ist oder gesetzliche Aufbewahrungsfristen bestehen.
+      </p>
+    </section>
+
+    <section class="mt-8 border-t border-shibui pt-8">
+      <h2 class="section-kicker mb-3">Betroffenenrechte</h2>
+      <p class="m-0 leading-[1.8] text-kyoto-text/80">
+        Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch.
+      </p>
+      <p class="m-0 mt-2 leading-[1.8] text-kyoto-text/80">
+        Zudem besteht ein Beschwerderecht bei der Österreichischen Datenschutzbehörde.
+      </p>
+    </section>
+
+    <section class="mt-8 border-t border-shibui pt-8">
+      <h2 class="section-kicker mb-3">Hinweis zu Cookies und Drittanbietern</h2>
+      <p class="m-0 leading-[1.8] text-kyoto-text/80">
+        Falls zukünftig Analyse-, Marketing- oder Social-Media-Tools eingesetzt werden, ist eine entsprechende Einwilligungslösung (Cookie-Banner)
+        sowie eine detaillierte Ergänzung dieser Datenschutzerklärung erforderlich.
+      </p>
+    </section>
+  </main>
+</BaseLayout>

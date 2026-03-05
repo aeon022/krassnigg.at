@@ -27,6 +27,17 @@ export default config({
         }),
         contactEmail: fields.text({ label: 'E-Mail Adresse' }),
         location: fields.text({ label: 'Standort/Kanzlei' }),
+        socialLinks: fields.object(
+          {
+            linkedin: fields.url({ label: 'LinkedIn' }),
+            facebook: fields.url({ label: 'Facebook' }),
+            instagram: fields.url({ label: 'Instagram' }),
+            x: fields.url({ label: 'X (Twitter)' }),
+            bluesky: fields.url({ label: 'Bluesky' }),
+            youtube: fields.url({ label: 'YouTube' }),
+          },
+          { label: 'Social Media (optional)' }
+        ),
       },
     }),
   },
