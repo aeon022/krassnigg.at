@@ -411,7 +411,7 @@ const socialEntries = [
           <div class="nav-row">
             <div class="nav-links">
               <a class:list={["menu-link is-main", { active: isActive("/") }]} href={withBase("/")}>Startseite</a>
-              <a class="menu-link is-sub" href={withBase("/#profil")}>Profil</a>
+              <a class="menu-link is-sub" href={isActive("/") ? "#profil" : withBase("/#profil")}>Profil</a>
               <a class="menu-link is-sub" href={withBase("/experience")}>Beruflicher Werdegang</a>
               <a class="menu-link is-sub" href={withBase("/education")}>Ausbildung</a>
               <a class="menu-link is-sub" href={withBase("/certifications")}>Zertifizierungen</a>
