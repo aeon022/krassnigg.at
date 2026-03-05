@@ -35,13 +35,15 @@ const socialEntries = [
 ]
   .map((item) => ({ ...item, href: socialLinks[item.key as keyof typeof socialLinks] }))
   .filter((item) => typeof item.href === "string" && item.href.length > 0);
-const siteBase = Astro.site ? new URL(Astro.site).toString() : Astro.url.origin;
+const basePath = import.meta.env.BASE_URL || "/";
+const siteOrigin = Astro.site ? new URL(Astro.site) : new URL(Astro.url.origin);
+const siteBase = new URL(basePath, siteOrigin).toString();
 const contactSchema = [
   {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     name: "Kontakt",
-    url: new URL("/kontakt", siteBase).toString(),
+    url: new URL("kontakt", siteBase).toString(),
     inLanguage: "de-AT",
     description: pageDescription,
     about: {

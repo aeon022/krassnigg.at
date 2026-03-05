@@ -3,13 +3,19 @@ import { getCollection } from "astro:content";
 
 export const GET: APIRoute = async ({ site }) => {
   const base = site?.toString().replace(/\/$/, "") ?? "https://krassnigg.at";
+  const basePath = import.meta.env.BASE_URL || "/";
+  const withBase = (path: string) => {
+    const normalized = path.startsWith("/") ? path.slice(1) : path;
+    if (basePath === "/") return `/${normalized}`;
+    return `${basePath}${normalized}`;
+  };
   const pages = ["/", "/kontakt", "/impressum", "/datenschutz"];
   const lastmod = new Date().toISOString().split("T")[0];
 
   const staticPages = pages
     .map(
       (page) => `<url>
-  <loc>${base}${page}</loc>
+  <loc>${base}${withBase(page)}</loc>
   <lastmod>${lastmod}</lastmod>
   <changefreq>monthly</changefreq>
   <priority>${page === "/" ? "1.0" : "0.7"}</priority>
@@ -25,7 +31,7 @@ export const GET: APIRoute = async ({ site }) => {
     dynamicPages += entries
       .map(
         (entry) => `<url>
-  <loc>${base}/${collection}/${entry.slug}</loc>
+  <loc>${base}${withBase(`/${collection}/${entry.slug}`)}</loc>
   <lastmod>${lastmod}</lastmod>
   <changefreq>yearly</changefreq>
   <priority>0.5</priority>

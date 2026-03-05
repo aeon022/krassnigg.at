@@ -4,6 +4,12 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const certificationList = await getCollection("certifications");
 const sortedCertifications = certificationList.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+const basePath = import.meta.env.BASE_URL || "/";
+const withBase = (path: string) => {
+  const normalized = path.startsWith("/") ? path.slice(1) : path;
+  if (basePath === "/") return `/${normalized}`;
+  return `${basePath}${normalized}`;
+};
 ---
 
 <BaseLayout title="Zertifizierungen" description="Zertifizierungen von Dr. Helmut Krassnigg">
@@ -13,7 +19,7 @@ const sortedCertifications = certificationList.sort((a, b) => (a.data.order || 0
             <ul class="m-0 p-0 flex flex-col gap-3">
                 {sortedCertifications.map((cert) => (
                   <li class="list-none font-sans text-[0.88rem] leading-[1.5] text-kyoto-text/80">
-                    <a href={`/certifications/${cert.id}`} class="hover:text-kyoto-accent transition-colors duration-300">
+                    <a href={withBase(`/certifications/${cert.id}`)} class="hover:text-kyoto-accent transition-colors duration-300">
                       {cert.data.title}
                     </a>
                   </li>

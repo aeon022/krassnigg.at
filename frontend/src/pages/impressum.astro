@@ -4,6 +4,12 @@ import { getEntry } from "astro:content";
 
 const profile = await getEntry("settings", "profile");
 const siteUrl = Astro.site ? new URL("/", Astro.site).toString() : "https://krassnigg.at/";
+const basePath = import.meta.env.BASE_URL || "/";
+const withBase = (path: string) => {
+  const normalized = path.startsWith("/") ? path.slice(1) : path;
+  if (basePath === "/") return `/${normalized}`;
+  return `${basePath}${normalized}`;
+};
 const legalName = profile?.data.name ?? "Dr. Helmut Krassnigg";
 const email = profile?.data.contactEmail ?? "office@example.at";
 const location = profile?.data.location ?? "Graz, Österreich";
@@ -16,7 +22,7 @@ const location = profile?.data.location ?? "Graz, Österreich";
   keywords={["Impressum", "Österreich", "ECG", "Mediengesetz"]}
 >
   <main class="max-w-4xl mx-auto px-8 md:px-14 lg:px-20 py-14 md:py-16">
-    <a href="/" class="inline-flex items-center mb-6 text-[0.72rem] uppercase tracking-[0.12em] text-kyoto-sub hover:text-kyoto-accent transition-colors">
+    <a href={withBase("/")} class="inline-flex items-center mb-6 text-[0.72rem] uppercase tracking-[0.12em] text-kyoto-sub hover:text-kyoto-accent transition-colors">
       ← Zur Startseite
     </a>
     <h1 class="m-0 font-serif text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.1]">Impressum</h1>

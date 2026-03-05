@@ -22,6 +22,9 @@ const sortedProfileSections = profileSectionList.sort((a, b) => (a.data.order ||
 const profileStatement = profile?.data.introStatement || "Ich stabilisiere Veränderung in Organisationen — indem ich Führung, Prozesse und Umsetzung präzise aufeinander ausrichte.";
 const skillsLine = sortedExpertise.map((item) => item.data.title).join(" · ");
 const pageDescription = profile?.data.bio || profileStatement;
+const basePath = import.meta.env.BASE_URL || "/";
+const siteOrigin = Astro.site ? new URL(Astro.site) : new URL(Astro.url.origin);
+const siteBaseUrl = new URL(basePath, siteOrigin).toString();
 const seoKeywords = [
   "Helmut Krassnigg",
   "Aftersales",
@@ -46,7 +49,7 @@ const personSchema = {
         addressCountry: "AT",
       }
     : undefined,
-  url: Astro.site ? new URL("/", Astro.site).toString() : Astro.url.origin,
+  url: siteBaseUrl,
   knowsAbout: Array.from(
     new Set([
       ...sortedExpertise.map((item) => item.data.title),
@@ -70,7 +73,7 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Dr. Helmut Krassnigg",
-  url: Astro.site ? new URL("/", Astro.site).toString() : Astro.url.origin,
+  url: siteBaseUrl,
   inLanguage: "de-AT",
 };
 ---
