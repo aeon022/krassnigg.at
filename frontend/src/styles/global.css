@@ -7,6 +7,10 @@
   :root {
     color-scheme: light;
 
+    /* === Header Heights === */
+    --header-height-sm: 5.5rem;
+    --header-height-lg: 4.5rem;
+
     /* === Woodland Zen Palette === */
 
     /* Khaki Beige */

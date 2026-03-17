@@ -3,10 +3,66 @@ let closeClickHandler = null;
 let navLinkClickHandler = null;
 let keydownHandler = null;
 let documentClickHandler = null;
+let lastScrollY = window.scrollY;
+let scrollHandler = null;
+let resizeHandler = null;
+
+const isPortraitPhone = () => window.matchMedia("(max-width: 767px) and (orientation: portrait)").matches;
+
+export const initHeaderScroll = () => {
+  const siteHeader = document.querySelector(".site-header");
+  if (!siteHeader) return;
+
+  const refreshHeaderState = () => {
+    const currentScrollY = window.scrollY;
+    const portraitPhone = isPortraitPhone();
+
+    if (currentScrollY > 50) {
+      siteHeader.classList.add("scrolled");
+    } else {
+      siteHeader.classList.remove("scrolled");
+    }
+
+    if (portraitPhone) {
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        siteHeader.classList.add("scrolled-down");
+      } else {
+        siteHeader.classList.remove("scrolled-down");
+      }
+    } else {
+      siteHeader.classList.remove("scrolled-down");
+    }
+
+    lastScrollY = currentScrollY;
+  };
+
+  if (scrollHandler) {
+    window.removeEventListener("scroll", scrollHandler);
+  }
+
+  if (resizeHandler) {
+    window.removeEventListener("resize", resizeHandler);
+  }
+
+  scrollHandler = () => {
+    refreshHeaderState();
+  };
+
+  window.addEventListener("scroll", scrollHandler, { passive: true });
+
+  resizeHandler = () => {
+    refreshHeaderState();
+  };
+
+  window.addEventListener("resize", resizeHandler, { passive: true });
+  lastScrollY = window.scrollY;
+  refreshHeaderState();
+};
 
 export const initHeaderMenu = () => {
   const menuShell = document.querySelector(".menu-shell");
   if (!(menuShell instanceof HTMLElement)) return;
+  const siteHeader = document.querySelector(".site-header");
 
   const toggleBtn = menuShell.querySelector(".menu-toggle");
   const closeBtn = menuShell.querySelector(".offcanvas-close");
@@ -16,6 +72,12 @@ export const initHeaderMenu = () => {
     if (!(toggleBtn instanceof HTMLButtonElement)) return;
     menuShell.dataset.open = open ? "true" : "false";
     toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (siteHeader instanceof HTMLElement) {
+      siteHeader.classList.toggle("menu-open", open);
+      if (open) {
+        siteHeader.classList.remove("scrolled-down");
+      }
+    }
   };
 
   // Remove old event listeners
@@ -74,4 +136,5 @@ export const initHeaderMenu = () => {
   });
   document.addEventListener("keydown", keydownHandler);
   document.addEventListener("click", documentClickHandler);
+  initHeaderScroll();
 };

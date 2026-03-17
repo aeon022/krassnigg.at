@@ -76,6 +76,21 @@ void keywords;
       <script type="application/ld+json" set:html={serializedSchema}></script>
     )}
     <style>
+      body {
+        padding-top: var(--header-height-sm);
+      }
+
+      @media (min-width: 768px) {
+        body {
+          padding-top: 0;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        body {
+          padding-top: 0;
+        }
+      }
       @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
         ::view-transition-old(root) {
           animation: page-fade-out 240ms ease both;

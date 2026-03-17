@@ -37,6 +37,8 @@ const socialEntries = [
     width: 100%;
     z-index: 60;
     pointer-events: none;
+    background: transparent;
+    transition: transform 240ms cubic-bezier(0.22, 0.78, 0.25, 1);
   }
 
   .menu-shell {
@@ -70,8 +72,8 @@ const socialEntries = [
   }
 
   .menu-toggle {
-    background: color-mix(in srgb, var(--color-bg), transparent 14%);
-    border: 1px solid color-mix(in srgb, var(--color-ink), transparent 70%);
+    background: transparent;
+    border: 1px solid transparent;
     color: var(--color-text-soft);
     cursor: pointer;
     display: inline-flex;
@@ -102,6 +104,10 @@ const socialEntries = [
     border-radius: 999px;
     border: 1px solid color-mix(in srgb, var(--color-ink), transparent 78%);
     background: color-mix(in srgb, var(--color-bg), transparent 8%);
+  }
+
+  .menu-toggle:hover .menu-badge {
+    border-color: color-mix(in srgb, var(--color-accent), transparent 70%);
   }
 
   .burger {
@@ -369,6 +375,65 @@ const socialEntries = [
     background: color-mix(in srgb, var(--color-accent), transparent 94%);
   }
 
+  .menu-toggle-label {
+    display: inline-block;
+  }
+
+  @media (max-width: 767px) and (orientation: portrait) {
+    .site-header {
+      background: color-mix(in srgb, var(--color-bg), transparent 8%);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid color-mix(in srgb, var(--color-ink), transparent 92%);
+      --header-compact-reveal: 4rem;
+    }
+
+    .site-header.scrolled-down {
+      transform: translateY(calc(var(--header-compact-reveal) - var(--header-height-sm)));
+    }
+
+    .site-header.menu-open {
+      transform: translateY(0);
+    }
+
+    .site-header.scrolled-down .menu-shell {
+      top: 2.4rem;
+    }
+
+    .site-header.scrolled-down .brand-shell {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .site-header.scrolled-down .brand-chip {
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+    }
+
+    .site-header.scrolled-down .menu-toggle-label {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .site-header {
+      background: transparent !important;
+    }
+
+    .menu-toggle {
+      border: 1px solid transparent;
+      backdrop-filter: none;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .menu-toggle:hover {
+      background: transparent;
+      box-shadow: none;
+      border-color: color-mix(in srgb, var(--color-accent), transparent 60%);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .burger-line,
     .offcanvas-panel,
@@ -394,7 +459,7 @@ const socialEntries = [
           <span class="burger-line"></span>
         </span>
       </span>
-      Menü
+      <span class="menu-toggle-label">Menü</span>
     </button>
 
     <nav id="main-nav-panel" class="offcanvas-panel" aria-label="Hauptnavigation">
@@ -445,9 +510,12 @@ const socialEntries = [
     </nav>
   </div>
 </header>
-
 <script>
-  import { initHeaderMenu } from "../assets/menu.js";
+  import { initHeaderMenu, initHeaderScroll } from "../assets/menu.js";
   initHeaderMenu();
-  document.addEventListener("astro:page-load", initHeaderMenu);
+  initHeaderScroll();
+  document.addEventListener("astro:page-load", () => {
+    initHeaderMenu();
+    initHeaderScroll();
+  });
 </script>

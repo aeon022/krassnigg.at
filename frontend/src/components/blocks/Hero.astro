@@ -26,6 +26,16 @@ const hasImage = !!resolvedHeroImage;
 ---
 
 <style>
+  .hero-section {
+    height: calc(100vh - var(--header-height-sm));
+  }
+
+  @media (min-width: 1024px) {
+    .hero-section {
+      height: calc(100vh - var(--header-height-lg));
+    }
+  }
+
   .hero-background {
     position: absolute;
     inset: 0;
@@ -171,7 +181,7 @@ const hasImage = !!resolvedHeroImage;
 </div>
 
 <section
-  class="grid grid-cols-12 gap-0 h-screen min-h-[600px] border-b border-shibui relative"
+  class="hero-section grid grid-cols-12 gap-0 min-h-[600px] border-b border-shibui relative"
   style="border-top: 2px solid var(--color-kyoto-accent);"
 >
   <div class={`col-span-12 ${hasImage ? 'md:col-span-8' : ''} flex flex-col px-6 md:px-12 relative z-10`}>
