@@ -27,7 +27,14 @@ const hasImage = !!resolvedHeroImage;
 
 <style>
   .hero-section {
-    height: calc(100vh - var(--header-height-sm));
+    min-height: 100svh;
+  }
+
+  @media (min-width: 768px) {
+    .hero-section {
+      height: calc(100vh - var(--header-height-sm));
+      min-height: 600px;
+    }
   }
 
   @media (min-width: 1024px) {
@@ -181,22 +188,22 @@ const hasImage = !!resolvedHeroImage;
 </div>
 
 <section
-  class="hero-section grid grid-cols-12 gap-0 min-h-[600px] border-b border-shibui relative"
+  class="hero-section grid grid-cols-12 gap-0 pt-16 md:pt-0 border-b border-shibui relative"
   style="border-top: 2px solid var(--color-kyoto-accent);"
 >
   <div class={`col-span-12 ${hasImage ? 'md:col-span-8' : ''} flex flex-col px-6 md:px-12 relative z-10`}>
 
-    <div class="pt-10 md:pt-14">
+    <div class="pt-6 md:pt-14">
       <p class="font-sans text-[10px] uppercase tracking-[0.28em] text-kyoto-accent">
         Profil
       </p>
     </div>
 
-    <div class="hero-title-wrap flex-1 flex flex-col justify-end pb-7 md:pb-9">
+    <div class="hero-title-wrap flex-1 flex flex-col justify-end pb-7 md:pb-9 md:pr-12 lg:pr-16">
       <p class="m-0 mb-2.5 font-sans text-[0.72rem] text-kyoto-sub tracking-[0.04em]">
         {title}
       </p>
-      <h1 class="hero-name m-0 font-serif text-[clamp(1.9rem,4vw,4.5rem)] leading-[1.06] tracking-[-0.01em] text-kyoto-text">
+      <h1 class="hero-name m-0 font-serif text-[clamp(1.9rem,4vw,4.5rem)] md:text-[clamp(1.9rem,3.2vw,3.9rem)] leading-[1.06] tracking-[-0.01em] text-kyoto-text md:whitespace-nowrap">
         {name}
       </h1>
     </div>

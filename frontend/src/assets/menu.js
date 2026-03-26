@@ -66,6 +66,7 @@ export const initHeaderMenu = () => {
 
   const toggleBtn = menuShell.querySelector(".menu-toggle");
   const closeBtn = menuShell.querySelector(".offcanvas-close");
+  const navPanel = menuShell.querySelector(".offcanvas-panel");
   const navLinks = menuShell.querySelectorAll(".offcanvas-panel a");
 
   const setOpen = (open) => {
@@ -76,6 +77,14 @@ export const initHeaderMenu = () => {
       siteHeader.classList.toggle("menu-open", open);
       if (open) {
         siteHeader.classList.remove("scrolled-down");
+      }
+    }
+    document.body.classList.toggle("menu-open", open);
+
+    if (navPanel instanceof HTMLElement) {
+      navPanel.setAttribute("aria-hidden", open ? "false" : "true");
+      if ("inert" in navPanel) {
+        navPanel.inert = !open;
       }
     }
   };
@@ -137,4 +146,5 @@ export const initHeaderMenu = () => {
   document.addEventListener("keydown", keydownHandler);
   document.addEventListener("click", documentClickHandler);
   initHeaderScroll();
+  setOpen(menuShell.dataset.open === "true");
 };

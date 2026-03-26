@@ -10,7 +10,7 @@ const sortedCertifications = certificationList.sort((a, b) => (a.data.order || 0
 ---
 
 <BaseLayout title="Ausbildung" description="Ausbildung von Dr. Helmut Krassnigg">
-    <div class="max-w-6xl mx-auto px-8 md:px-14 lg:px-20 pb-10 md:pb-12">
+    <div class="max-w-6xl mx-auto px-6 md:px-14 lg:px-20 pb-10 md:pb-12">
         <Education degrees={sortedEducation} certifications={sortedCertifications} />
     </div>
 </BaseLayout>
