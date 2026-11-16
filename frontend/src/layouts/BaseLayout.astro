@@ -1,6 +1,6 @@
 ---
 // Dateipfad: frontend/src/layouts/BaseLayout.astro
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -54,7 +54,7 @@ void keywords;
     <script is:inline>
       document.documentElement.classList.add("js");
     </script>
-    <ViewTransitions />
+    <ClientRouter />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="robots" content={robotsContent} />
